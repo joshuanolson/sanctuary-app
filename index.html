@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sanctuary — Worship Team Wellbeing</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sanctuary">
+<meta name="theme-color" content="#1A2E44">
+<meta name="description" content="A private, confidential wellbeing platform for worship team members.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231A2E44'/><path d='M50 15L50 85M28 40Q50 20 72 40' stroke='%234A7C59' stroke-width='7' stroke-linecap='round' fill='none'/><circle cx='50' cy='85' r='5' fill='%234A7C59'/></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1A2E44;--navy-mid:#2C4A6E;--navy-light:#3D6494;
+  --sage:#4A7C59;--sage-light:#6BA07A;--sage-pale:#E8F3EB;
+  --gold:#C49A3C;--gold-pale:#F9F3E3;
+  --cream:#FAF8F4;--white:#FFFFFF;
+  --text:#1A2E44;--text2:#4A5568;--text3:#8A9BB0;
+  --border:#E2E8EF;--border-light:#F0F4F8;
+  --shadow-sm:0 1px 3px rgba(26,46,68,.08);
+  --shadow-md:0 4px 16px rgba(26,46,68,.10);
+  --r:12px;--r-sm:8px;--r-lg:20px;--ease:0.18s ease;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.active{display:flex}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,46,68,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 20px;height:60px;display:flex;align-items:center;gap:16px}
+.nav-logo{font-family:'Lora',serif;font-size:20px;color:#fff;letter-spacing:.04em;cursor:pointer;flex-shrink:0}
+.nav-links{display:flex;gap:2px;margin-left:auto}
+.nav-link{padding:7px 11px;border-radius:var(--r-sm);font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;transition:all var(--ease);border:none;background:none;font-family:'Inter',sans-serif;white-space:nowrap}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav-link.active{color:#fff;background:rgba(74,124,89,.3)}
+.nav-cta{padding:8px 16px;background:var(--sage);color:#fff;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:background var(--ease);flex-shrink:0}
+.nav-cta:hover{background:var(--sage-light)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{width:22px;height:2px;background:rgba(255,255,255,.8);border-radius:2px}
+.mobile-menu{display:none;flex-direction:column;background:rgba(26,46,68,.98);border-top:1px solid rgba(255,255,255,.08);padding:12px 20px 20px}
+.mobile-menu.open{display:flex}
+.mobile-link{padding:12px 4px;font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;border-bottom:1px solid rgba(255,255,255,.06)}
+@media(max-width:720px){.nav-links,.nav-cta{display:none}.hamburger{display:flex}}
+/* PAGE */
+.page{padding-top:60px;flex:1;display:flex;flex-direction:column}
+/* HERO */
+.hero{background:var(--navy);position:relative;overflow:hidden;padding:80px 20px 90px}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(74,124,89,.15) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:680px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.logo-mark{width:64px;height:64px;background:linear-gradient(135deg,var(--sage),var(--sage-light));border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 4px 20px rgba(74,124,89,.35)}
+.logo-mark svg{width:32px;height:32px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round}
+.wordmark{font-family:'Lora',serif;font-size:36px;color:#fff;letter-spacing:.04em;margin-bottom:6px}
+.tagline-sub{font-size:13px;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase;margin-bottom:36px}
+.hero-headline{font-family:'Lora',serif;font-size:clamp(24px,4vw,34px);line-height:1.4;color:#fff;margin-bottom:16px}
+.hero-headline em{color:var(--sage-light);font-style:italic}
+.hero-p{font-size:16px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:40px;max-width:520px;margin-left:auto;margin-right:auto}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--sage);color:#fff;border:none;border-radius:var(--r);padding:15px 28px;font-family:'Inter',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all var(--ease);box-shadow:0 4px 16px rgba(74,124,89,.4)}
+.btn-primary:hover{background:var(--sage-light);transform:translateY(-1px)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.25);border-radius:var(--r);padding:14px 24px;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;transition:all var(--ease)}
+.btn-outline:hover{border-color:rgba(255,255,255,.55);color:#fff}
+.trust-note{margin-top:28px;font-size:12px;color:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;gap:6px}
+.trust-dot{width:5px;height:5px;border-radius:50%;background:var(--sage-light)}
+/* STATS */
+.stats-bar{background:var(--navy-mid);padding:28px 20px}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px}
+.stat-item{text-align:center}
+.stat-num{font-family:'Lora',serif;font-size:30px;color:#fff;margin-bottom:4px}
+.stat-label{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5}
+/* SECTIONS */
+.section{padding:72px 20px}
+.section-inner{max-width:1000px;margin:0 auto}
+.section.alt{background:var(--white)}
+.sec-eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:10px}
+.sec-title{font-family:'Lora',serif;font-size:clamp(22px,3vw,32px);color:var(--navy);margin-bottom:12px;line-height:1.3}
+.sec-desc{font-size:15px;color:var(--text2);line-height:1.75;max-width:580px}
+.sec-header{margin-bottom:48px}
+/* PILLARS */
+.pillars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+.pillar-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:28px 24px;cursor:pointer;transition:all var(--ease)}
+.pillar-card:hover{border-color:var(--sage);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.pillar-icon{font-size:28px;margin-bottom:16px}
+.pillar-name{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.pillar-desc{font-size:14px;color:var(--text2);line-height:1.65}
+/* PAGE HEROES */
+.page-hero{background:var(--navy);padding:64px 20px;text-align:center}
+.page-hero-title{font-family:'Lora',serif;font-size:clamp(24px,4vw,38px);color:#fff;margin-bottom:12px;line-height:1.3}
+.page-hero-sub{font-size:15px;color:rgba(255,255,255,.55);max-width:480px;margin:0 auto;line-height:1.7}
+/* ABOUT */
+.research-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-bottom:48px}
+.research-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px;text-align:center}
+.research-stat{font-family:'Lora',serif;font-size:34px;color:var(--navy);margin-bottom:6px}
+.research-stat.danger{color:#DC2626}
+.research-label{font-size:13px;color:var(--text2);line-height:1.5}
+.values-list{display:flex;flex-direction:column;gap:20px;max-width:680px}
+.value-item{display:flex;gap:16px;align-items:flex-start}
+.value-dot{width:10px;height:10px;border-radius:50%;background:var(--sage);flex-shrink:0;margin-top:5px}
+.value-text h4{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.value-text p{font-size:14px;color:var(--text2);line-height:1.65}
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:900px;margin:0 auto}
+.price-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:32px 28px;position:relative}
+.price-card.featured{border-color:var(--sage);box-shadow:0 0 0 4px rgba(74,124,89,.08)}
+.price-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--sage);color:#fff;font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.price-tier{font-size:13px;font-weight:600;color:var(--sage);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.price-name{font-family:'Lora',serif;font-size:20px;color:var(--navy);margin-bottom:14px}
+.price-amount{display:flex;align-items:baseline;gap:4px;margin-bottom:4px}
+.price-num{font-size:36px;font-weight:600;color:var(--navy)}
+.price-per{font-size:14px;color:var(--text3)}
+.price-annual{font-size:12px;color:var(--text3);margin-bottom:20px}
+.price-divider{border:none;border-top:1px solid var(--border);margin:18px 0}
+.price-features{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.pf-row{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--text2);line-height:1.5}
+.pf-check{color:var(--sage);flex-shrink:0}
+.pf-x{color:var(--text3);flex-shrink:0}
+.price-btn{width:100%;padding:13px;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all var(--ease);border:none}
+.price-btn.p{background:var(--sage);color:#fff}
+.price-btn.p:hover{background:var(--sage-light)}
+.price-btn.s{background:var(--cream);color:var(--navy);border:1.5px solid var(--border)}
+.price-btn.s:hover{border-color:var(--sage);color:var(--sage)}
+.compassion-note{max-width:560px;margin:40px auto 0;text-align:center;font-size:14px;color:var(--text2);line-height:1.7;background:var(--gold-pale);border:1px solid rgba(196,154,60,.25);border-radius:var(--r);padding:20px 24px}
+/* ARTICLES */
+.articles-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.filter-btn{padding:8px 16px;border-radius:20px;font-size:13px;border:1px solid var(--border);background:var(--white);color:var(--text2);cursor:pointer;transition:all var(--ease)}
+.filter-btn:hover,.filter-btn.active{background:var(--sage);color:#fff;border-color:var(--sage)}
+.articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:24px}
+.article-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all var(--ease)}
+.article-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.article-thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:48px}
+.article-body{padding:20px}
+.article-cat{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);margin-bottom:8px}
+.article-title{font-family:'Lora',serif;font-size:17px;color:var(--navy);margin-bottom:8px;line-height:1.4}
+.article-excerpt{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:12px}
+.article-meta{font-size:12px;color:var(--text3)}
+.article-detail-wrap{max-width:680px;margin:0 auto;padding:40px 20px 80px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--sage);cursor:pointer;margin-bottom:28px;background:none;border:none;font-family:'Inter',sans-serif}
+.article-full-cat{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);margin-bottom:10px}
+.article-full-title{font-family:'Lora',serif;font-size:clamp(22px,4vw,32px);color:var(--navy);margin-bottom:14px;line-height:1.35}
+.article-full-meta{font-size:13px;color:var(--text3);margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.article-content p{font-size:16px;color:var(--text2);line-height:1.85;margin-bottom:20px}
+.article-content h3{font-family:'Lora',serif;font-size:20px;color:var(--navy);margin:32px 0 12px}
+.article-content blockquote{border-left:3px solid var(--gold);padding:12px 20px;margin:28px 0;background:var(--gold-pale);border-radius:0 var(--r-sm) var(--r-sm) 0}
+.article-content blockquote p{font-style:italic;font-family:'Lora',serif;font-size:15px;margin:0;color:var(--navy)}
+/* TRAINING */
+.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px}
+.course-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all var(--ease)}
+.course-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.course-hdr{padding:28px 24px;position:relative}
+.course-icon{font-size:30px;margin-bottom:12px}
+.course-name{font-family:'Lora',serif;font-size:18px;color:#fff;margin-bottom:6px;line-height:1.3}
+.course-mods{font-size:12px;color:rgba(255,255,255,.6)}
+.course-body{padding:18px 24px}
+.course-desc{font-size:13.5px;color:var(--text2);line-height:1.65;margin-bottom:14px}
+.course-prog{height:5px;background:var(--border);border-radius:3px;margin-bottom:6px}
+.course-prog-fill{height:100%;background:var(--sage);border-radius:3px;transition:width .5s}
+.course-prog-label{font-size:11px;color:var(--text3)}
+.course-tag{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;margin-top:10px}
+.tag-free{background:var(--sage-pale);color:var(--sage)}
+.tag-pro{background:var(--gold-pale);color:var(--gold)}
+.tag-coming{background:var(--border-light);color:var(--text3)}
+.course-detail-wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px}
+.module-list{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.module-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px 20px;cursor:pointer;transition:all var(--ease);display:flex;align-items:center;gap:14px}
+.module-item:hover{border-color:var(--sage);box-shadow:var(--shadow-sm)}
+.module-item.locked{opacity:.55;cursor:default}
+.mod-num{width:34px;height:34px;border-radius:50%;background:var(--sage-pale);color:var(--sage);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mod-num.done{background:var(--sage);color:#fff}
+.mod-info{flex:1}
+.mod-name{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:2px}
+.mod-dur{font-size:12px;color:var(--text3)}
+.module-content-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:28px;margin-top:20px}
+.module-content-box h3{font-family:'Lora',serif;font-size:19px;color:var(--navy);margin-bottom:14px}
+.module-content-box p{font-size:14.5px;color:var(--text2);line-height:1.8;margin-bottom:14px}
+.reflection-box{background:var(--sage-pale);border-left:3px solid var(--sage);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:14px 18px;margin:18px 0}
+.reflection-box p{color:var(--sage);font-style:italic;margin:0;font-size:14px}
+.module-nav{display:flex;gap:10px;margin-top:20px;justify-content:flex-end;flex-wrap:wrap}
+.btn-mod{padding:10px 20px;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:all var(--ease)}
+.btn-mod.next{background:var(--navy);color:#fff}
+.btn-mod.next:hover{background:var(--navy-mid)}
+.btn-mod.done-b{background:var(--sage);color:#fff}
+.btn-mod.done-b:hover{background:var(--sage-light)}
+/* ADVISOR */
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;margin-bottom:48px}
+.how-card{text-align:center;padding:24px 16px}
+.how-num{width:44px;height:44px;border-radius:50%;background:var(--sage-pale);color:var(--sage);font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.how-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.how-desc{font-size:13px;color:var(--text2);line-height:1.6}
+.advisor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.advisor-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px}
+.advisor-avatar{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px}
+.advisor-name{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:2px}
+.advisor-role{font-size:13px;color:var(--sage);margin-bottom:10px;font-weight:500}
+.advisor-bio{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:14px}
+.advisor-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.advisor-tag{font-size:11px;padding:3px 10px;background:var(--cream);border:1px solid var(--border);border-radius:20px;color:var(--text2)}
+.advisor-avail{font-size:12px;color:var(--sage);margin-bottom:14px}
+.btn-book{width:100%;padding:11px;background:var(--navy);color:#fff;border:none;border-radius:var(--r-sm);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:background var(--ease)}
+.btn-book:hover{background:var(--navy-mid)}
+.upgrade-gate{background:var(--gold-pale);border:1px solid rgba(196,154,60,.3);border-radius:var(--r);padding:24px;text-align:center;margin-top:32px}
+.upgrade-gate h3{font-family:'Lora',serif;font-size:20px;color:var(--navy);margin-bottom:8px}
+.upgrade-gate p{font-size:14px;color:var(--text2);line-height:1.65;margin-bottom:18px}
+.btn-upgrade{padding:13px 28px;background:var(--gold);color:#fff;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all var(--ease)}
+.btn-upgrade:hover{background:#b8892e}
+/* COUNSELLOR */
+.pathway-steps{display:flex;flex-direction:column;gap:0;max-width:600px;margin:0 auto 48px}
+.pathway-item{display:flex;gap:20px;align-items:flex-start;position:relative}
+.pathway-item:not(:last-child)::after{content:'';position:absolute;left:20px;top:46px;bottom:-4px;width:2px;background:var(--sage-pale)}
+.pathway-dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:2px solid var(--sage);background:var(--white)}
+.pathway-body{padding:6px 0 36px}
+.pathway-head{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.pathway-desc{font-size:13.5px;color:var(--text2);line-height:1.65}
+.counsel-form-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:36px 32px;max-width:540px;margin:0 auto}
+.form-title{font-family:'Lora',serif;font-size:22px;color:var(--navy);margin-bottom:6px}
+.form-sub{font-size:14px;color:var(--text2);margin-bottom:28px;line-height:1.6}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:13px;font-weight:500;color:var(--navy);margin-bottom:7px}
+.form-input,.form-select,.form-textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:'Inter',sans-serif;font-size:14px;color:var(--text);background:var(--cream);outline:none;transition:border-color var(--ease)}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--sage)}
+.form-textarea{resize:vertical;min-height:90px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}}
+.btn-submit{width:100%;padding:15px;background:var(--navy);color:#fff;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:background var(--ease);margin-top:8px}
+.btn-submit:hover{background:var(--navy-mid)}
+.counsel-disclaimer{font-size:12px;color:var(--text3);text-align:center;margin-top:12px;line-height:1.6}
+.success-msg{display:none;text-align:center;padding:40px 24px;background:var(--sage-pale);border-radius:var(--r);border:1px solid rgba(74,124,89,.2);max-width:540px;margin:0 auto}
+.success-msg h3{font-family:'Lora',serif;font-size:22px;color:var(--navy);margin-bottom:10px}
+.success-msg p{font-size:14px;color:var(--text2);line-height:1.65}
+.crisis-box{background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--r);padding:20px 24px;max-width:540px;margin:32px auto 0}
+.crisis-box h4{font-size:14px;font-weight:600;color:#991B1B;margin-bottom:6px}
+.crisis-box p{font-size:13px;color:#7F1D1D;line-height:1.65}
+/* ONBOARDING */
+#onboarding{background:var(--cream)}
+.ob-header{background:var(--navy);padding:18px 20px;display:flex;align-items:center}
+.ob-logo{font-family:'Lora',serif;color:#fff;font-size:18px}
+.ob-step{margin-left:auto;font-size:12px;color:rgba(255,255,255,.45)}
+.ob-body{flex:1;max-width:480px;margin:0 auto;padding:40px 20px 32px;width:100%}
+.ob-q{font-family:'Lora',serif;font-size:22px;color:var(--navy);margin-bottom:8px;line-height:1.4}
+.ob-hint{font-size:14px;color:var(--text3);margin-bottom:28px;line-height:1.6}
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.opt-grid.single{grid-template-columns:1fr}
+.opt-btn{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:14px;text-align:left;cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;color:var(--text2);transition:all var(--ease);line-height:1.4}
+.opt-btn .oi{font-size:20px;display:block;margin-bottom:6px}
+.opt-btn:hover,.opt-btn.selected{border-color:var(--sage);background:var(--sage-pale);color:var(--navy)}
+.opt-btn.selected{font-weight:500}
+.name-input{width:100%;padding:14px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:var(--white);outline:none;transition:border-color var(--ease);margin-bottom:12px}
+.name-input:focus{border-color:var(--sage)}
+.btn-next{width:100%;padding:15px;background:var(--navy);color:#fff;border:none;border-radius:var(--r);font-family:'Inter',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:background var(--ease)}
+.btn-next:hover{background:var(--navy-mid)}
+.btn-next:disabled{opacity:.4;cursor:not-allowed}
+.api-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:20px}
+.api-card-title{font-family:'Lora',serif;font-size:17px;color:var(--navy);margin-bottom:8px}
+.api-card-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.api-note{background:var(--gold-pale);border:1px solid rgba(196,154,60,.25);border-radius:var(--r-sm);padding:12px;font-size:12.5px;color:var(--text2);margin-bottom:14px;line-height:1.6}
+.api-row{display:flex;gap:8px}
+.api-row input{flex:1;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:'Inter',sans-serif;font-size:13px;outline:none;transition:border-color var(--ease);color:var(--text);background:var(--cream)}
+.api-row input:focus{border-color:var(--sage)}
+.api-row button{padding:11px 16px;background:var(--navy);color:#fff;border:none;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
+.key-saved{color:var(--sage);font-size:12px;margin-top:8px;display:none}
+/* CHAT */
+#chat{background:var(--cream)}
+.confid-bar{background:var(--sage-pale);border-bottom:1px solid rgba(74,124,89,.2);padding:8px 16px;font-size:12px;color:var(--sage);text-align:center}
+.chat-header{background:var(--white);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow-sm)}
+.chat-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy-mid));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-av svg{width:20px;height:20px;fill:none;stroke:rgba(255,255,255,.9);stroke-width:1.6;stroke-linecap:round}
+.chat-info{flex:1}
+.chat-name{font-family:'Lora',serif;font-size:15px;color:var(--navy)}
+.chat-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 2px var(--sage-pale)}
+.icon-btn{width:34px;height:34px;border:none;background:transparent;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text3);transition:all var(--ease)}
+.icon-btn:hover{background:var(--border-light);color:var(--navy)}
+.chat-msgs{flex:1;overflow-y:auto;padding:24px 16px;display:flex;flex-direction:column;gap:16px;max-width:680px;width:100%;margin:0 auto}
+.msg{display:flex;gap:10px;align-items:flex-start;animation:fadeUp .25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{flex-direction:row-reverse}
+.msg-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:500;margin-top:2px}
+.msg.agent .msg-av{background:linear-gradient(135deg,var(--navy),var(--navy-mid))}
+.msg.agent .msg-av svg{width:16px;height:16px;fill:none;stroke:rgba(255,255,255,.9);stroke-width:1.8;stroke-linecap:round}
+.msg.user .msg-av{background:var(--sage);color:#fff}
+.msg-bubble{max-width:78%;padding:13px 16px;border-radius:16px;font-size:14.5px;line-height:1.7;word-break:break-word}
+.msg.agent .msg-bubble{background:var(--white);color:var(--text);border:1px solid var(--border);border-top-left-radius:4px;box-shadow:var(--shadow-sm)}
+.msg.user .msg-bubble{background:var(--navy);color:rgba(255,255,255,.93);border-top-right-radius:4px}
+.msg-meta{font-size:11px;color:var(--text3);margin-top:5px;padding:0 4px}
+.msg.user .msg-meta{text-align:right}
+.typing-ind{display:flex;gap:5px;align-items:center;padding:14px 16px}
+.t-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:typing 1.2s ease infinite}
+.t-dot:nth-child(2){animation-delay:.2s}
+.t-dot:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px 4px;max-width:680px;margin:0 auto;width:100%}
+.chip{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:7px 14px;font-size:12.5px;color:var(--text2);cursor:pointer;transition:all var(--ease);font-family:'Inter',sans-serif}
+.chip:hover{border-color:var(--sage);color:var(--sage);background:var(--sage-pale)}
+.chat-input-area{background:var(--white);border-top:1px solid var(--border);padding:12px 16px 20px;max-width:680px;width:100%;margin:0 auto}
+.input-row{display:flex;align-items:flex-end;gap:10px;background:var(--cream);border:1.5px solid var(--border);border-radius:24px;padding:10px 12px 10px 18px;transition:border-color var(--ease)}
+.input-row:focus-within{border-color:var(--sage)}
+#userInput{flex:1;border:none;background:transparent;font-family:'Inter',sans-serif;font-size:14.5px;color:var(--text);resize:none;outline:none;min-height:22px;max-height:100px;line-height:1.5}
+#userInput::placeholder{color:var(--text3)}
+.send-btn{width:36px;height:36px;border-radius:50%;background:var(--sage);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--ease);flex-shrink:0;color:#fff}
+.send-btn:hover{background:var(--sage-light);transform:scale(1.05)}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.input-footer{font-size:11px;color:var(--text3);text-align:center;margin-top:8px}
+/* FOOTER */
+footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
+.footer-inner{max-width:1000px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:32px}
+@media(max-width:700px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.footer-grid{grid-template-columns:1fr}}
+.footer-brand{font-family:'Lora',serif;font-size:20px;color:#fff;margin-bottom:10px}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;max-width:240px}
+.footer-col h4{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px}
+.footer-link{display:block;font-size:13px;color:rgba(255,255,255,.5);margin-bottom:8px;cursor:pointer;transition:color var(--ease);background:none;border:none;font-family:'Inter',sans-serif;text-align:left;padding:0}
+.footer-link:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.25)}
+/* INSTALL BANNER */
+.install-banner{display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:var(--r);padding:14px 18px;box-shadow:0 8px 32px rgba(26,46,68,.3);z-index:200;max-width:340px;width:90%;align-items:center;gap:12px}
+.install-banner.show{display:flex}
+.install-banner p{font-size:13px;line-height:1.5;flex:1}
+.install-banner p strong{display:block;margin-bottom:2px}
+.install-close{background:none;border:none;color:rgba(255,255,255,.5);font-size:18px;cursor:pointer;flex-shrink:0;line-height:1}
+/* SCROLLBAR */
+.chat-msgs::-webkit-scrollbar{width:4px}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">Sanctuary</div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="showPage('about')">About</button>
+      <button class="nav-link" onclick="showPage('training')">Training</button>
+      <button class="nav-link" onclick="showPage('articles')">Articles</button>
+      <button class="nav-link" onclick="showPage('connect')">Advisors</button>
+      <button class="nav-link" onclick="showPage('counsellor')">Counselling</button>
+      <button class="nav-link" onclick="showPage('pricing')">Pricing</button>
+    </div>
+    <button class="nav-cta" onclick="startJourney()">Begin →</button>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-link" onclick="showPage('about');toggleMenu()">About</div>
+    <div class="mobile-link" onclick="showPage('training');toggleMenu()">Training</div>
+    <div class="mobile-link" onclick="showPage('articles');toggleMenu()">Articles</div>
+    <div class="mobile-link" onclick="showPage('connect');toggleMenu()">Advisors</div>
+    <div class="mobile-link" onclick="showPage('counsellor');toggleMenu()">Counselling</div>
+    <div class="mobile-link" onclick="showPage('pricing');toggleMenu()">Pricing</div>
+    <div class="mobile-link" onclick="startJourney();toggleMenu()" style="color:var(--sage-light);font-weight:500">Begin your journey →</div>
+  </div>
+</nav>
+
+<!-- ══ HOME ══ -->
+<div class="screen page active" id="home">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="logo-mark"><svg viewBox="0 0 32 32"><path d="M16 4L16 28M8 12Q16 6 24 12"/><circle cx="16" cy="28" r="2" fill="white" stroke="none"/></svg></div>
+      <div class="wordmark">Sanctuary</div>
+      <div class="tagline-sub">Worship Team Wellbeing</div>
+      <h1 class="hero-headline">You pour out <em>every week</em>.<br>This is where you're poured back in.</h1>
+      <p class="hero-p">A private, confidential space for worship leaders and team members to process, reflect, and find support — grounded in faith, informed by care.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="startJourney()">Begin my journey →</button>
+        <button class="btn-outline" onclick="showPage('about')">Learn more</button>
+      </div>
+      <p class="trust-note"><span class="trust-dot"></span>Fully private &amp; confidential. Your church cannot see this.</p>
+    </div>
+  </div>
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item"><div class="stat-num">3.4%</div><div class="stat-label">Worship leaders rating mental health 'excellent' (vs 29% nationally)</div></div>
+      <div class="stat-item"><div class="stat-num">87%</div><div class="stat-label">Receive no regular support or pastoral care</div></div>
+      <div class="stat-item"><div class="stat-num">65%</div><div class="stat-label">Of pastors report loneliness and isolation</div></div>
+      <div class="stat-item"><div class="stat-num">450K+</div><div class="stat-label">Protestant churches across English-speaking nations</div></div>
+    </div>
+  </div>
+  <div class="section alt">
+    <div class="section-inner">
+      <div class="sec-header">
+        <div class="sec-eyebrow">What Sanctuary offers</div>
+        <h2 class="sec-title">Four pillars of sustainable ministry</h2>
+        <p class="sec-desc">Built specifically for the pressures, paradoxes, and spiritual questions of worship team life.</p>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar-card" onclick="startJourney()"><div class="pillar-icon">🤖</div><div class="pillar-name">AI Pastoral Agent</div><div class="pillar-desc">A private, always-available conversation partner — theologically grounded, emotionally attuned, completely confidential.</div></div>
+        <div class="pillar-card" onclick="showPage('training')"><div class="pillar-icon">🎓</div><div class="pillar-name">Training Space</div><div class="pillar-desc">Courses on worship theology, sustainable ministry, lament, and leadership — built for every level of team member.</div></div>
+        <div class="pillar-card" onclick="showPage('connect')"><div class="pillar-icon">🤝</div><div class="pillar-name">Advisor Connect</div><div class="pillar-desc">Private sessions with vetted worship leaders and pastoral mentors who understand your world from the inside.</div></div>
+        <div class="pillar-card" onclick="showPage('counsellor')"><div class="pillar-icon">🧠</div><div class="pillar-name">Counsellor Referral</div><div class="pillar-desc">A warm pathway to qualified, faith-informed psychologists when the support you need goes deeper than conversation.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="text-align:center">
+    <div class="section-inner">
+      <div class="sec-eyebrow">Ready to begin?</div>
+      <h2 class="sec-title" style="margin:0 auto 12px">Your first session is free.</h2>
+      <p class="sec-desc" style="margin:0 auto 32px;text-align:center">No credit card. No commitment. Just a space to breathe and be honest.</p>
+      <button class="btn-primary" onclick="startJourney()">Begin my journey →</button>
+    </div>
+  </div>
+  <footer><div class="footer-inner">
+    <div class="footer-grid">
+      <div><div class="footer-brand">Sanctuary</div><p class="footer-desc">A wellbeing platform for worship teams in Protestant churches. Private, confidential, and theologically grounded.</p></div>
+      <div><h4>Platform</h4><button class="footer-link" onclick="startJourney()">AI Companion</button><button class="footer-link" onclick="showPage('training')">Training</button><button class="footer-link" onclick="showPage('connect')">Advisors</button><button class="footer-link" onclick="showPage('counsellor')">Counselling</button></div>
+      <div><h4>Company</h4><button class="footer-link" onclick="showPage('about')">About</button><button class="footer-link" onclick="showPage('articles')">Articles</button><button class="footer-link" onclick="showPage('pricing')">Pricing</button></div>
+      <div><h4>Support</h4><button class="footer-link">Privacy Policy</button><button class="footer-link">Terms of Service</button><button class="footer-link">Contact</button></div>
+    </div>
+    <div class="footer-bottom"><span class="footer-copy">© 2026 Sanctuary. All rights reserved.</span></div>
+  </div></footer>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div class="screen page" id="about">
+  <div class="page-hero">
+    <div class="sec-eyebrow" style="color:var(--sage-light)">Our mission</div>
+    <h1 class="page-hero-title">The Church is stronger when<br>its worship leaders are whole.</h1>
+    <p class="page-hero-sub">Sanctuary exists because the people who lead congregations in worship are suffering in silence — and deserve better.</p>
+  </div>
+  <div class="section alt">
+    <div class="section-inner">
+      <div class="sec-eyebrow">The research</div>
+      <h2 class="sec-title" style="margin-bottom:36px">A quiet crisis in plain sight</h2>
+      <div class="research-grid">
+        <div class="research-card"><div class="research-stat danger">3.4%</div><div class="research-label">Worship leaders rating mental health as 'excellent' vs 29% of general population</div></div>
+        <div class="research-card"><div class="research-stat danger">87%</div><div class="research-label">Receive no regular support, mentoring, or professional care</div></div>
+        <div class="research-card"><div class="research-stat">34pt</div><div class="research-label">Gap between those who experience purpose (79%) and those who experience joy (44%)</div></div>
+        <div class="research-card"><div class="research-stat danger">65%</div><div class="research-label">Of pastors report loneliness — up from 42% in 2015</div></div>
+        <div class="research-card"><div class="research-stat">42%</div><div class="research-label">Of pastors have considered leaving full-time ministry in the past year</div></div>
+        <div class="research-card"><div class="research-stat danger">14%</div><div class="research-label">Of pastors report excellent wellbeing — down from 39% in 2015</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="sec-eyebrow">What we believe</div>
+      <h2 class="sec-title" style="margin-bottom:36px">Our values</h2>
+      <div class="values-list">
+        <div class="value-item"><div class="value-dot"></div><div class="value-text"><h4>Confidentiality is sacred</h4><p>Your church, your pastor, and your team cannot see what you share here. Full stop. Sanctuary is your space, not theirs.</p></div></div>
+        <div class="value-item"><div class="value-dot"></div><div class="value-text"><h4>Theological integrity matters</h4><p>We don't bolt Bible verses onto secular wellbeing content. Our platform is built from within the Protestant tradition, respecting its diversity and depth.</p></div></div>
+        <div class="value-item"><div class="value-dot"></div><div class="value-text"><h4>Purpose alone is not enough</h4><p>Knowing your calling matters. So does joy, rest, friendship, and the freedom to be honest. Sanctuary addresses all of it.</p></div></div>
+        <div class="value-item"><div class="value-dot"></div><div class="value-text"><h4>Professional care is not weakness</h4><p>We actively normalise and facilitate access to qualified psychologists — because sometimes what you need is more than encouragement.</p></div></div>
+        <div class="value-item"><div class="value-dot"></div><div class="value-text"><h4>The psalms of lament are our model</h4><p>Honest, raw, held within covenant relationship. The tradition that gave us Psalm 22 gives us everything we need to build this platform.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="section alt" style="text-align:center">
+    <div class="section-inner">
+      <h2 class="sec-title" style="margin:0 auto 12px;max-width:560px">"You pour out every week. Sanctuary is where you're poured back in."</h2>
+      <p class="sec-desc" style="margin:0 auto 32px;text-align:center">Join worship leaders across the English-speaking world choosing sustainability over silence.</p>
+      <button class="btn-primary" onclick="startJourney()">Begin my journey →</button>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-bottom"><span class="footer-copy">© 2026 Sanctuary</span></div></div></footer>
+</div>
+
+<!-- ══ PRICING ══ -->
+<div class="screen page" id="pricing">
+  <div class="page-hero">
+    <div class="sec-eyebrow" style="color:var(--sage-light)">Simple, transparent pricing</div>
+    <h1 class="page-hero-title">Support that fits your season</h1>
+    <p class="page-hero-sub">Start free. Upgrade when you're ready. Cancel anytime.</p>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-tier">Foundation</div><div class="price-name">For the individual</div>
+          <div class="price-amount"><span class="price-num">$19</span><span class="price-per">/month</span></div>
+          <div class="price-annual">or $179/year (save $49)</div>
+          <hr class="price-divider">
+          <div class="price-features">
+            <div class="pf-row"><span class="pf-check">✓</span>Unlimited AI pastoral conversations</div>
+            <div class="pf-row"><span class="pf-check">✓</span>Full training library access</div>
+            <div class="pf-row"><span class="pf-check">✓</span>Devotional content &amp; articles</div>
+            <div class="pf-row"><span class="pf-check">✓</span>2 advisor sessions per year</div>
+            <div class="pf-row"><span class="pf-check">✓</span>Mood &amp; sustainability tracking</div>
+            <div class="pf-row"><span class="pf-x">✗</span><span style="color:var(--text3)">Counsellor referral pathway</span></div>
+          </div>
+          <button class="price-btn s" onclick="startJourney()">Get started</button>
+        </div>
+        <div class="price-card featured">
+          <div class="price-badge">Most popular</div>
+          <div class="price-tier">Flourish</div><div class="price-name">For the committed</div>
+          <div class="price-amount"><span class="price-num">$39</span><span class="price-per">/month</span></div>
+          <div class="price-annual">or $369/year (save $99)</div>
+          <hr class="price-divider">
+          <div class="price-features">
+            <div class="pf-row"><span class="pf-check">✓</span>Everything in Foundation</div>
+            <div class="pf-row"><span class="pf-check">✓</span>6 advisor sessions per year</div>
+            <div class="pf-row"><span class="pf-check">✓</span>Counsellor referral pathway</div>
+            <div class="pf-row"><span class="pf-check">✓</span>2 subsidised psych sessions/yr</div>
+            <div class="pf-row"><span class="pf-check">✓</span>Priority advisor matching</div>
+          </div>
+          <button class="price-btn p" onclick="startJourney()">Get started</button>
+        </div>
+        <div class="price-card">
+          <div class="price-tier">Team</div><div class="price-name">For your whole team</div>
+          <div class="price-amount"><span class="price-num">$149</span><span class="price-per">/month</span></div>
+          <div class="price-annual">or $1,399/year — up to 12 members</div>
+          <hr class="price-divider">
+          <div class="price-features">
+            <div class="pf-row"><span class="pf-check">✓</span>Flourish access for 12 users</div>
+            <div class="pf-row"><span class="pf-check">✓</span>Anonymous team health dashboard</div>
+            <div class="pf-row"><span class="pf-check">✓</span>Church admin portal</div>
+            <div class="pf-row"><span class="pf-check">✓</span>Monthly pastoral leader briefing</div>
+            <div class="pf-row"><span class="pf-check">✓</span>Denomination pricing available</div>
+          </div>
+          <button class="price-btn s" onclick="showPage('counsellor')">Talk to us</button>
+        </div>
+      </div>
+      <div class="compassion-note"><strong>Compassion Rate available.</strong> If you're a volunteer or in a financially constrained season, apply for 50% off any individual tier. Ministry shouldn't be inaccessible to those who need it most.</div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-bottom"><span class="footer-copy">© 2026 Sanctuary</span></div></div></footer>
+</div>
+
+<!-- ══ ARTICLES ══ -->
+<div class="screen page" id="articles">
+  <div class="page-hero">
+    <div class="sec-eyebrow" style="color:var(--sage-light)">Resources</div>
+    <h1 class="page-hero-title">Grounded in truth. Honest about struggle.</h1>
+    <p class="page-hero-sub">Articles, reflections, and theological resources for the worship team member's real life.</p>
+  </div>
+  <div class="section" id="articlesListSec">
+    <div class="section-inner">
+      <div class="articles-filter">
+        <button class="filter-btn active" onclick="filterArt('all',this)">All</button>
+        <button class="filter-btn" onclick="filterArt('Wellbeing',this)">Wellbeing</button>
+        <button class="filter-btn" onclick="filterArt('Theology',this)">Theology</button>
+        <button class="filter-btn" onclick="filterArt('Leadership',this)">Leadership</button>
+        <button class="filter-btn" onclick="filterArt('Devotional',this)">Devotional</button>
+      </div>
+      <div class="articles-grid" id="articlesGrid"></div>
+    </div>
+  </div>
+  <div class="section" id="articleDetailSec" style="display:none;padding-top:80px">
+    <div class="article-detail-wrap" id="articleDetailContent"></div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-bottom"><span class="footer-copy">© 2026 Sanctuary</span></div></div></footer>
+</div>
+
+<!-- ══ TRAINING ══ -->
+<div class="screen page" id="training">
+  <div class="page-hero">
+    <div class="sec-eyebrow" style="color:var(--sage-light)">Training Space</div>
+    <h1 class="page-hero-title">Grow deeper. Lead better. Last longer.</h1>
+    <p class="page-hero-sub">Courses built for the theological, emotional, and practical realities of worship ministry.</p>
+  </div>
+  <div class="section" id="coursesListSec">
+    <div class="section-inner">
+      <div class="course-grid" id="courseGrid"></div>
+    </div>
+  </div>
+  <div class="section" id="courseDetailSec" style="display:none;padding-top:80px">
+    <div class="course-detail-wrap" id="courseDetailContent"></div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-bottom"><span class="footer-copy">© 2026 Sanctuary</span></div></div></footer>
+</div>
+
+<!-- ══ ADVISOR CONNECT ══ -->
+<div class="screen page" id="connect">
+  <div class="page-hero">
+    <div class="sec-eyebrow" style="color:var(--sage-light)">Advisor Connect</div>
+    <h1 class="page-hero-title">Someone who understands<br>your world from the inside.</h1>
+    <p class="page-hero-sub">Private sessions with vetted worship leaders and pastoral mentors who have stood where you stand.</p>
+  </div>
+  <div class="section alt">
+    <div class="section-inner">
+      <div class="sec-eyebrow">How it works</div>
+      <h2 class="sec-title" style="margin-bottom:36px">Three steps to your first session</h2>
+      <div class="how-grid">
+        <div class="how-card"><div class="how-num">1</div><div class="how-title">Choose your advisor</div><div class="how-desc">Browse advisors matched to your tradition, role, and presenting concern.</div></div>
+        <div class="how-card"><div class="how-num">2</div><div class="how-title">Book a time</div><div class="how-desc">45-minute sessions via secure video or phone. No waiting lists.</div></div>
+        <div class="how-card"><div class="how-num">3</div><div class="how-title">Arrive as you are</div><div class="how-desc">Your advisor has context from your Sanctuary profile. No need to start from scratch.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="sec-eyebrow">Our advisors</div>
+      <h2 class="sec-title" style="margin-bottom:8px">Meet the team</h2>
+      <p class="sec-desc" style="margin-bottom:36px">All advisors are vetted, trained in pastoral boundaries, and bound by Sanctuary's confidentiality policy.</p>
+      <div class="advisor-grid">
+        <div class="advisor-card">
+          <div class="advisor-avatar" style="background:#E8F3EB">🎵</div>
+          <div class="advisor-name">Sarah M.</div><div class="advisor-role">Worship Director, 18 years</div>
+          <div class="advisor-bio">Former megachurch worship director now dedicated to supporting the next generation of leaders through the pressures she knows firsthand.</div>
+          <div class="advisor-tags"><span class="advisor-tag">Burnout recovery</span><span class="advisor-tag">Team leadership</span><span class="advisor-tag">Pentecostal</span></div>
+          <div class="advisor-avail">● Available this week</div>
+          <button class="btn-book" onclick="showUpgradeGate()">Book a session</button>
+        </div>
+        <div class="advisor-card">
+          <div class="advisor-avatar" style="background:#F0F4F8">🎹</div>
+          <div class="advisor-name">James T.</div><div class="advisor-role">Pastoral Musician &amp; Theologian</div>
+          <div class="advisor-bio">Seminary-trained worship theologian with 20 years in Reformed and Anglican contexts. Specialises in theological questions about the nature of worship.</div>
+          <div class="advisor-tags"><span class="advisor-tag">Theology</span><span class="advisor-tag">Calling &amp; purpose</span><span class="advisor-tag">Reformed</span></div>
+          <div class="advisor-avail">● Available next week</div>
+          <button class="btn-book" onclick="showUpgradeGate()">Book a session</button>
+        </div>
+        <div class="advisor-card">
+          <div class="advisor-avatar" style="background:#FEF9E7">🎤</div>
+          <div class="advisor-name">Rachel K.</div><div class="advisor-role">Worship Leader &amp; Counsellor</div>
+          <div class="advisor-bio">Dual-qualified worship leader and registered counsellor with a particular heart for vocalists and those navigating identity questions in their role.</div>
+          <div class="advisor-tags"><span class="advisor-tag">Identity</span><span class="advisor-tag">Loneliness</span><span class="advisor-tag">Charismatic</span></div>
+          <div class="advisor-avail">● Available this week</div>
+          <button class="btn-book" onclick="showUpgradeGate()">Book a session</button>
+        </div>
+      </div>
+      <div class="upgrade-gate" id="upgradeGate" style="display:none">
+        <h3>Advisor sessions are part of the Flourish plan</h3>
+        <p>Upgrade to Flourish ($39/month) to unlock 6 advisor sessions per year, priority matching, and access to the counsellor referral pathway.</p>
+        <button class="btn-upgrade" onclick="showPage('pricing')">See pricing →</button>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-bottom"><span class="footer-copy">© 2026 Sanctuary</span></div></div></footer>
+</div>
+
+<!-- ══ COUNSELLOR ══ -->
+<div class="screen page" id="counsellor">
+  <div class="page-hero" style="background:linear-gradient(135deg,#1A2E44,#2C4A6E)">
+    <div class="sec-eyebrow" style="color:var(--sage-light)">Counsellor Referral</div>
+    <h1 class="page-hero-title">Sometimes you need more<br>than a conversation.</h1>
+    <p class="page-hero-sub">A warm, supported pathway to qualified psychologists who understand faith, ministry, and the specific pressures of worship leadership.</p>
+  </div>
+  <div class="section alt">
+    <div class="section-inner">
+      <div class="sec-eyebrow">The pathway</div>
+      <h2 class="sec-title" style="margin-bottom:36px">You won't be dropped into a directory.</h2>
+      <div class="pathway-steps">
+        <div class="pathway-item"><div class="pathway-dot">💬</div><div class="pathway-body"><div class="pathway-head">1. Share what you're carrying</div><div class="pathway-desc">Complete a short, private intake form below. This helps us understand what you're facing and what kind of support would help most.</div></div></div>
+        <div class="pathway-item"><div class="pathway-dot">🔍</div><div class="pathway-body"><div class="pathway-head">2. We find the right match</div><div class="pathway-desc">Our clinical coordinator identifies 2–3 psychologists from our network whose background fits your situation and tradition.</div></div></div>
+        <div class="pathway-item"><div class="pathway-dot">📋</div><div class="pathway-body"><div class="pathway-head">3. Your context travels with you</div><div class="pathway-desc">With your permission, we share a brief summary so your first session begins from a place of understanding, not explanation.</div></div></div>
+        <div class="pathway-item"><div class="pathway-dot">🌿</div><div class="pathway-body"><div class="pathway-head">4. Subsidised sessions</div><div class="pathway-desc">Flourish subscribers receive subsidised rates. Sessions delivered via telehealth across the US, UK, Canada, and Australia.</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="counsel-form-wrap" id="counselForm">
+        <div class="form-title">Request a referral</div>
+        <p class="form-sub">Completely confidential. Takes about 4 minutes. We respond within 2 business days.</p>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">First name</label><input class="form-input" type="text" placeholder="Your first name"></div>
+          <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="Private email address"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Your role</label>
+          <select class="form-select"><option value="">Select…</option><option>Worship Leader / Director</option><option>Musician / Instrumentalist</option><option>Vocalist</option><option>Tech / Sound / Visual</option><option>Volunteer Team Member</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Country</label>
+          <select class="form-select"><option value="">Select…</option><option>United States</option><option>United Kingdom</option><option>Australia</option><option>Canada</option><option>New Zealand</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">What's bringing you here? <span style="color:var(--text3);font-weight:400">(optional)</span></label>
+          <textarea class="form-textarea" placeholder="Share as much or as little as you'd like."></textarea>
+        </div>
+        <div class="form-group"><label class="form-label">What kind of support are you hoping for?</label>
+          <select class="form-select"><option value="">Select…</option><option>I'm not sure — I just need to talk to someone</option><option>Ongoing counselling (weekly or fortnightly)</option><option>A few sessions to work through something specific</option><option>Crisis support</option></select>
+        </div>
+        <button class="btn-submit" onclick="submitReferral()">Submit referral request</button>
+        <p class="counsel-disclaimer">Your information is never shared with your church, employer, or denomination. Used only to match you with an appropriate psychologist.</p>
+      </div>
+      <div class="success-msg" id="referralSuccess">
+        <div style="font-size:40px;margin-bottom:16px">🌿</div>
+        <h3>We've received your request.</h3>
+        <p>Thank you for taking this step. Someone from the Sanctuary team will be in touch within 2 business days with your matched psychologist options.<br><br>In the meantime, your AI companion is available anytime you need it.</p>
+        <button class="btn-primary" style="margin-top:20px" onclick="startJourney()">Return to your companion →</button>
+      </div>
+      <div class="crisis-box">
+        <h4>If you are in immediate crisis</h4>
+        <p>Please contact a crisis service. US: 988 Suicide &amp; Crisis Lifeline (call or text 988). Australia: Lifeline 13 11 14. UK: Samaritans 116 123. Canada: 1-833-456-4566.</p>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div class="footer-bottom"><span class="footer-copy">© 2026 Sanctuary</span></div></div></footer>
+</div>
+
+<!-- ══ ONBOARDING ══ -->
+<div class="screen" id="onboarding">
+  <div class="ob-header"><div class="ob-logo">Sanctuary</div><div class="ob-step" id="stepLabel">Step 1 of 4</div></div>
+  <div class="ob-body">
+    <div id="step1"><h2 class="ob-q">What's your name?</h2><p class="ob-hint">Just your first name — it helps the conversation feel personal.</p><input class="name-input" id="nameInput" type="text" placeholder="First name" autocomplete="off"><button class="btn-next" onclick="nextStep(1)">Continue</button></div>
+    <div id="step2" style="display:none"><h2 class="ob-q">What's your role?</h2><p class="ob-hint">Choose the one that fits best.</p>
+      <div class="opt-grid" id="roleGrid">
+        <button class="opt-btn" data-val="Worship Leader / Director" onclick="selOpt(this,'roleGrid')"><span class="oi">🎤</span>Worship Leader</button>
+        <button class="opt-btn" data-val="Musician / Instrumentalist" onclick="selOpt(this,'roleGrid')"><span class="oi">🎸</span>Musician</button>
+        <button class="opt-btn" data-val="Vocalist" onclick="selOpt(this,'roleGrid')"><span class="oi">🎵</span>Vocalist</button>
+        <button class="opt-btn" data-val="Tech / Sound / Visual" onclick="selOpt(this,'roleGrid')"><span class="oi">🎛</span>Tech / Sound</button>
+        <button class="opt-btn" data-val="Administrator" onclick="selOpt(this,'roleGrid')"><span class="oi">📋</span>Administrator</button>
+        <button class="opt-btn" data-val="Volunteer" onclick="selOpt(this,'roleGrid')"><span class="oi">🙏</span>Volunteer</button>
+      </div>
+      <button class="btn-next" id="nextStep2" onclick="nextStep(2)" disabled>Continue</button>
+    </div>
+    <div id="step3" style="display:none"><h2 class="ob-q">What brings you here?</h2><p class="ob-hint">Select all that feel true right now.</p>
+      <div class="opt-grid single" id="needGrid">
+        <button class="opt-btn" data-val="loneliness" onclick="this.classList.toggle('selected');updateNeeds()"><span class="oi">💭</span>Feeling lonely or unseen</button>
+        <button class="opt-btn" data-val="inadequacy" onclick="this.classList.toggle('selected');updateNeeds()"><span class="oi">😔</span>Feeling not good enough</button>
+        <button class="opt-btn" data-val="burnout" onclick="this.classList.toggle('selected');updateNeeds()"><span class="oi">🕯</span>Exhausted or burning out</button>
+        <button class="opt-btn" data-val="purpose" onclick="this.classList.toggle('selected');updateNeeds()"><span class="oi">🔍</span>Questioning my calling</button>
+        <button class="opt-btn" data-val="theology" onclick="this.classList.toggle('selected');updateNeeds()"><span class="oi">📖</span>Theological questions</button>
+        <button class="opt-btn" data-val="conflict" onclick="this.classList.toggle('selected');updateNeeds()"><span class="oi">🤝</span>Team or church conflict</button>
+      </div>
+      <button class="btn-next" onclick="nextStep(3)">Continue</button>
+    </div>
+    <div id="step4" style="display:none"><h2 class="ob-q">One quick setup step</h2><p class="ob-hint">Sanctuary uses Claude AI for your private conversation. You need a free Anthropic API key.</p>
+      <div class="api-card">
+        <div class="api-card-title">Add your API key</div>
+        <div class="api-card-desc">Get your free key at <strong>console.anthropic.com</strong> — takes 2 minutes. Stored only in your browser.</div>
+        <div class="api-note">💡 Your key is never shared with Sanctuary or your church. It goes directly to Anthropic's secure servers.</div>
+        <div class="api-row"><input type="password" id="apiKeyInput" placeholder="sk-ant-…"><button onclick="saveKey()">Save</button></div>
+        <div class="key-saved" id="keySaved">✓ Key saved in your browser</div>
+      </div>
+      <button class="btn-next" onclick="beginChat()">Enter Sanctuary →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CHAT ══ -->
+<div class="screen" id="chat">
+  <div class="confid-bar">🔒 This conversation is private and confidential. Your church cannot see it.</div>
+  <div class="chat-header">
+    <div class="chat-av"><svg viewBox="0 0 20 20"><path d="M10 2L10 18M5 7Q10 3 15 7"/><circle cx="10" cy="18" r="1.5" fill="rgba(255,255,255,.9)" stroke="none"/></svg></div>
+    <div class="chat-info"><div class="chat-name">Sanctuary</div><div class="chat-sub">Your private pastoral companion</div></div>
+    <div class="status-dot"></div>
+    <button class="icon-btn" onclick="clearChat()" title="New conversation"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+    <button class="icon-btn" onclick="showPage('home')" title="Home"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8l6-6 6 6M3 7v7h4v-4h2v4h4V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="chat-msgs" id="chatMsgs"></div>
+  <div class="chips" id="chipArea"></div>
+  <div class="chat-input-area">
+    <div class="input-row">
+      <textarea id="userInput" placeholder="Share what's on your heart…" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMsg()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 8H2M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="input-footer">Sanctuary is a support companion, not a replacement for professional care. In crisis, please call 988 (US) or your local crisis line.</div>
+  </div>
+</div>
+
+<!-- PWA Install Banner -->
+<div class="install-banner" id="installBanner">
+  <p><strong>Add Sanctuary to your home screen</strong>Tap Share → "Add to Home Screen" for the full app experience.</p>
+  <button class="install-close" onclick="dismissInstall()">✕</button>
+</div>
+
+<script>
+// ── DATA ─────────────────────────────────────
+const ARTICLES=[
+  {id:1,cat:'Wellbeing',color:'#E8F3EB',emoji:'💭',title:'The Loneliness Nobody Talks About',excerpt:'You stand in front of hundreds every week. So why does it feel like no one sees you? On the paradox of visibility and isolation in worship ministry.',author:'Sanctuary Editorial',date:'June 2026',read:'7 min read',content:'<p>There is a particular kind of loneliness that belongs to the worship leader. It isn\'t the loneliness of the recluse or the outcast. It is the loneliness of the person who is always present, always performing, always giving — and almost never received.</p><p>You stand at the front every Sunday. Hundreds of eyes are on you. Voices rise and fall with your lead. People leave saying they felt close to God. And then you drive home alone, or you pack up cables while the congregation talks to each other, and something quietly aches.</p><h3>The paradox of the platform</h3><p>Worship leaders are structurally isolated in a way that is rarely named. Their role requires them to be givers — of energy, attention, musical excellence, spiritual vulnerability. The congregation receives. Rarely does the congregation give back.</p><blockquote><p>"I model openness every week. I lead people into honesty before God. But I can\'t be honest about my own struggles, because I\'m the one who\'s supposed to have it together."</p></blockquote><p>This is the paradox: the very skills that make you effective as a worship leader — emotional expressiveness, spiritual sensitivity, relational warmth — are the same skills that mask your need. You appear fine. You appear strong. You are often neither of these things.</p><h3>Why the usual answers don\'t work</h3><p>When worship leaders do name their loneliness, they often receive unhelpful responses. "Join a small group." "Lean into your relationship with God." These responses miss the structural reality. The worship leader\'s relationships at church are professional — they report to the senior pastor, they lead the team members they\'re lonely around, they are seen by the congregation as a spiritual authority. There is structurally no safe space. Sanctuary exists to change that.</p>'},
+  {id:2,cat:'Theology',color:'#F0F4F8',emoji:'📖',title:'Is What We Do on Sunday Actually Worship?',excerpt:'The contemporary worship industry creates pressures that can erode the theological rootedness of the worship leader. A frank exploration.',author:'James T., Sanctuary Advisor',date:'May 2026',read:'9 min read',content:'<p>It is a question most worship leaders carry but few say aloud: am I leading people into encounter with God, or am I producing an emotional experience?</p><p>This is not a cynical question. It is a theological one — and one of the most important a worship leader can ask. The fact that it feels dangerous to ask it says something about the culture we have created around contemporary church music.</p><h3>The problem with production</h3><p>The professionalism of contemporary worship has brought genuine gifts: musical excellence, thoughtful arrangement, theological care in songwriting. But it has also brought a metric that corrupts: measuring the success of a worship service by the emotional response of the congregation.</p><blockquote><p>"If people were moved, it worked. If they weren\'t, it didn\'t." This logic, applied consistently, makes the worship leader a mood engineer rather than a minister.</p></blockquote><h3>What Scripture actually says</h3><p>The psalms are the Church\'s oldest worship songbook, and they are strikingly unconcerned with the worshipper\'s emotional state as a measure of validity. Psalm 22 opens with "My God, my God, why have you forsaken me?" — and it is still an act of worship. Lament is worship. Confusion is worship. The dry, faithless going-through-the-motions can be worship, if it is directed honestly toward the living God.</p><p>This is deeply liberating for the worship leader who feels nothing on a Sunday morning but leads anyway. That faithfulness is itself a profound act of theological integrity.</p>'},
+  {id:3,cat:'Leadership',color:'#FEF9E7',emoji:'🕯',title:'Burnout Is Not a Badge of Honour',excerpt:'The church has a complicated relationship with exhaustion. Why we mistake depletion for devotion — and what sustainable ministry actually looks like.',author:'Sarah M., Sanctuary Advisor',date:'April 2026',read:'6 min read',content:'<p>Somewhere along the way, the church began confusing burnout with faithfulness. The worship leader who never takes a Sunday off, who answers every message at 11pm, who sacrifices family dinner for the fourth rehearsal of the week — this person is quietly admired. They are "committed." They are "all in."</p><p>They are also, according to the data and the testimony of hundreds of former worship leaders, on a trajectory toward collapse.</p><h3>The theology we\'ve inherited</h3><p>Part of the problem is theological. There is a strand of Christian spirituality that valorises self-sacrifice to the point of self-destruction. "Dying to self" gets applied to rest, to boundaries, to basic human needs. The result is a culture where taking care of yourself feels spiritually suspect.</p><blockquote><p>But the God who rested on the seventh day did not rest because he was tired. He rested as an act of completion, of blessing, of modelling. Sabbath is not a concession to weakness. It is a theological statement.</p></blockquote><h3>What sustainability looks like</h3><p>Sustainable worship ministry is not lazy worship ministry. It is ministry that can continue — the long obedience in the same direction that Eugene Peterson described. Practically, sustainability requires: regular Sabbath rhythms, a support structure that includes people who give to you, honest assessment of your own emotional state, and the willingness to ask for help before the crisis arrives.</p>'},
+  {id:4,cat:'Devotional',color:'#F9F3E3',emoji:'🌿',title:'Praying the Psalms of Lament',excerpt:'A short devotional guide to using the psalms of honest struggle as a daily practice for worship leaders carrying more than they can name.',author:'Sanctuary Devotional',date:'June 2026',read:'4 min read',content:'<p>The psalms of lament — Psalms 13, 22, 42, 88, and others — are among the most honest pieces of literature ever written. They do not dress up pain in theological language that softens it. They bring the raw thing before God and ask hard questions.</p><p>For the worship leader, they are a gift.</p><h3>A daily practice</h3><p>Choose one lament psalm. Read it slowly, once through, without commentary. Then ask three questions:</p><p><strong>What does this psalm name that I haven\'t been able to name?</strong> Often the psalmist says something we\'ve been feeling but couldn\'t articulate.</p><p><strong>Where is God in this psalm?</strong> Even in the darkest laments, the psalmist maintains the address — "my God." There is covenant assumption underneath the complaint.</p><p><strong>What would it mean to pray this honestly?</strong> To bring the real thing, not the edited version, before the God who already knows it.</p><blockquote><p>"How long, Lord? Will you forget me forever? How long will you hide your face from me?" — Psalm 13:1</p></blockquote><p>This is not a failure of faith. This is faith — the faith that believes God is present enough to complain to.</p>'},
+  {id:5,cat:'Wellbeing',color:'#EDE9FE',emoji:'🧠',title:'When to Seek Professional Help',excerpt:'Knowing the difference between a hard season and a clinical need — and why reaching out to a psychologist is one of the most faithful things a worship leader can do.',author:'Sanctuary Editorial',date:'March 2026',read:'5 min read',content:'<p>Hard seasons are normal. Ministry is demanding. There will be periods of exhaustion, doubt, and discouragement that pass with rest, support, and time. But some experiences are different in kind, not just degree.</p><h3>Signs that go beyond a hard season</h3><p>Consider reaching out to a psychologist if you are experiencing: persistent low mood or anxiety lasting more than two weeks; difficulty sleeping, concentrating, or experiencing pleasure; intrusive thoughts you can\'t control; feelings of hopelessness that don\'t lift; or any thoughts of harming yourself.</p><h3>The theology of seeking help</h3><p>There is a persistent myth in faith communities that seeking professional psychological help represents a failure of trust in God. This myth has caused immeasurable harm. The God who gave us medicine, community, and the care of others did not intend for those gifts to be refused on the grounds of piety.</p><blockquote><p>Seeking help is not faithlessness. It is stewardship — of the life, the ministry, and the people entrusted to you.</p></blockquote><p>The Sanctuary counsellor referral pathway exists to make this step as warm and supported as possible. You won\'t be handed a list of names. You\'ll be matched with a psychologist who understands your world — and you\'ll arrive at your first session already understood.</p>'}
+];
+
+const COURSES=[
+  {id:1,color:'#1A2E44',title:'Theology of Worship',tag:'free',desc:'What are we actually doing on Sunday? A theologically grounded exploration across Reformed, charismatic, Anglican, and Baptist traditions.',mods:[
+    {name:'What is worship? Defining the indefinable',dur:'18 min',free:true,body:'Worship is one of the most used and least defined words in the contemporary church. In this module we explore what Scripture, tradition, and the Christian centuries actually say about the nature of worship — and why the answer matters enormously for how we lead.',reflect:'What assumptions about worship have you been operating from that you\'ve never examined? Take a moment to write them down.'},
+    {name:'The psalms as worship curriculum',dur:'22 min',free:true,body:'The psalms are the Church\'s oldest worship songbook. They are also strikingly diverse — encompassing praise, lament, confession, and wonder. What does the psalter teach us about the full range of honest worship?',reflect:'Which type of psalm do you most naturally lean toward in your leading? Which do you tend to avoid? Why?'},
+    {name:'Spirit and truth: what Jesus meant',dur:'15 min',free:false,body:'John 4:24 is the most quoted verse in worship theology and the most misunderstood. "In spirit and truth" is not an instruction about emotional authenticity and doctrinal accuracy. It is a statement about the new covenant reality of worship through Christ.',reflect:'How has your understanding of "spirit and truth" shaped the way you lead? Has this module changed anything?'},
+    {name:'Lament as worship: the case for honesty',dur:'20 min',free:false,body:'If our Sunday worship never sounds like Psalm 88, we may be offering God something less than the full range of human experience. This module makes the theological and pastoral case for integrating lament into contemporary worship.',reflect:'Is there space in your church\'s worship for genuine lament? What would it take to create that space?'},
+    {name:'The glory of God and the good of the people',dur:'17 min',free:false,body:'The twin purposes of worship — glorifying God and edifying the body — are not in tension. This final module explores how to hold both in balance, and what happens when one eclipses the other.',reflect:'In your current context, which tends to win — God-directedness or congregational experience? How do you navigate that?'}
+  ]},
+  {id:2,color:'#4A7C59',title:'Sustainable Ministry',tag:'free',desc:'Built to last. Practical and theological foundations for a worship ministry you can sustain for decades, not burn through in five years.',mods:[
+    {name:'The Sabbath principle for ministry workers',dur:'20 min',free:true,body:'Sabbath is not a concession to weakness. It is a theological statement about the nature of God, time, and the human person. This module grounds a sustainable rhythm in the fourth commandment and its New Testament development.',reflect:'What does genuine Sabbath rest look like for you — not just time off, but actual cessation and delight? When did you last experience it?'},
+    {name:'Recognising the warning signs',dur:'16 min',free:true,body:'Burnout rarely announces itself. It arrives gradually, disguised as busyness, commitment, and spiritual dedication. This module helps you develop fluency in reading your own internal signals before the crisis arrives.',reflect:'On a scale of 1–10, rate your current sustainable energy. What would need to change for that number to move up by two points?'},
+    {name:'Building a support ecosystem',dur:'22 min',free:false,body:'The worship leader who has no one to receive from — only people to give to — is structurally vulnerable. This module helps you map your current support ecosystem and identify the gaps.',reflect:'List the people in your life who genuinely give to you. Is it enough? What is missing?'},
+    {name:'Boundaries in ministry: a theological framework',dur:'18 min',free:false,body:'Boundaries are not selfish. They are a form of honesty about our finitude and a condition of long-term faithfulness. This module provides a theological case for boundaries in ministry.',reflect:'Where in your current ministry do you most need to establish or reinforce a boundary? What has stopped you?'}
+  ]},
+  {id:3,color:'#C49A3C',title:'Leading Through Conflict',tag:'pro',desc:'Team tensions, pastoral disagreements, and church conflict are common in worship ministry. A biblical and practical framework for navigating them faithfully.',mods:[
+    {name:'Why worship teams attract conflict',dur:'15 min',free:false,body:'Worship teams bring together high-sensitivity people, strong aesthetic opinions, spiritual stakes, and limited resources — a combination that almost guarantees friction. Understanding why conflict is normal is the first step to navigating it well.',reflect:'What is the source of most conflict in your current team? Is it about music, relationships, theology, or something else?'},
+    {name:'Matthew 18 in practice',dur:'20 min',free:false,body:'Jesus\' teaching on conflict in Matthew 18 is the most practical conflict resolution framework in the New Testament. This module applies it specifically to worship team and church contexts.',reflect:'Is there a relationship in your team that Matthew 18 suggests you should address directly? What has stopped you?'},
+    {name:'When conflict is with your senior pastor',dur:'22 min',free:false,body:'One of the most common and difficult situations in worship ministry is navigating a significant disagreement with the senior pastor. This module addresses power dynamics, theological disagreement, and the question of when to stay and when to leave.',reflect:'How would you describe your current relationship with your senior pastor? Where is it strong? Where is it fragile?'},
+    {name:'Leaving well',dur:'18 min',free:false,body:'Sometimes the most faithful thing a worship leader can do is leave — and to do so in a way that honours the community, the relationships, and the God who called them there. This module addresses the theology and practicalities of a good ending.',reflect:'Have you ever left a role badly? What would you do differently now?'}
+  ]},
+  {id:4,color:'#3D6494',title:'Identity & Calling',tag:'coming',desc:'Coming soon. Who are you when the music stops? A deep exploration of worship leader identity, imposter syndrome, and the theological foundations of calling.',mods:[]}
+];
+
+// ── STATE ─────────────────────────────────────
+const S={
+  name:'',role:'',needs:[],
+  apiKey:localStorage.getItem('sk_sanctuary')||'',
+  msgs:[],waiting:false,
+  progress:JSON.parse(localStorage.getItem('san_progress')||'{}')
+};
+
+// ── NAVIGATION ─────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  const pages=['about','training','articles','connect','counsellor','pricing'];
+  const idx=pages.indexOf(id);
+  if(idx>=0) document.querySelectorAll('.nav-link')[idx].classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='articles') renderArticles();
+  if(id==='training') renderCourses();
+}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function startJourney(){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  if(S.apiKey){
+    document.getElementById('chat').classList.add('active');
+    if(!S.msgs.length) initChat();
+  } else {
+    document.getElementById('onboarding').classList.add('active');
+  }
+}
+
+// ── ONBOARDING ─────────────────────────────────────
+function selOpt(btn,grid){
+  document.querySelectorAll('#'+grid+' .opt-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  if(grid==='roleGrid'){S.role=btn.dataset.val;document.getElementById('nextStep2').disabled=false;}
+}
+function updateNeeds(){S.needs=Array.from(document.querySelectorAll('#needGrid .opt-btn.selected')).map(b=>b.dataset.val);}
+function nextStep(from){
+  if(from===1){const n=document.getElementById('nameInput').value.trim();if(!n){document.getElementById('nameInput').focus();return;}S.name=n;}
+  document.getElementById('step'+from).style.display='none';
+  document.getElementById('step'+(from+1)).style.display='block';
+  document.getElementById('stepLabel').textContent='Step '+(from+1)+' of 4';
+  if(from+1===4&&S.apiKey){document.getElementById('apiKeyInput').value=S.apiKey;document.getElementById('keySaved').style.display='block';}
+}
+function saveKey(){
+  const v=document.getElementById('apiKeyInput').value.trim();
+  if(!v.startsWith('sk-')){alert('Please enter a valid Anthropic API key (starts with sk-)');return;}
+  S.apiKey=v;localStorage.setItem('sk_sanctuary',v);document.getElementById('keySaved').style.display='block';
+}
+function beginChat(){
+  if(!S.apiKey){alert('Please add your API key to continue.');return;}
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('chat').classList.add('active');
+  initChat();
+}
+
+// ── CHAT ─────────────────────────────────────
+function initChat(){
+  S.msgs=[];document.getElementById('chatMsgs').innerHTML='';
+  const nm=S.name||'friend';
+  const needMap={loneliness:"You mentioned feeling lonely in your role — that takes real courage to name.",inadequacy:"You mentioned feeling like you're not enough. That's one of the most common — and most hidden — struggles in worship ministry.",burnout:"You mentioned being exhausted. That matters, and I'm glad you're here.",purpose:"You mentioned questioning your calling. That's a holy question, not a weakness.",theology:"You're carrying some theological questions about your work. Those questions belong here.",conflict:"You mentioned some tension in your team or church. That can be really draining."};
+  const extra=S.needs.length?'\n\n'+needMap[S.needs[0]]:'';
+  addMsg('agent',`${nm}, I'm glad you're here.\n\nThis space belongs to you. Whatever you share stays here — it's completely private, and no one from your church or team can see it.${extra}\n\nThere's no rush. Tell me: how are you really doing right now?`);
+  showChips(["I'm honestly struggling","I feel lonely on our team","I'm not sure I'm called to this","I'm just exhausted","I have a theological question"]);
+}
+function showChips(chips){document.getElementById('chipArea').innerHTML=chips.map(c=>`<button class="chip" onclick="useChip(this)">${c}</button>`).join('');}
+function useChip(btn){document.getElementById('userInput').value=btn.textContent;document.getElementById('chipArea').innerHTML='';sendMsg();}
+function addMsg(role,text){
+  const el=document.getElementById('chatMsgs');
+  const d=document.createElement('div');d.className='msg '+role;
+  const av=role==='agent'?`<div class="msg-av"><svg viewBox="0 0 20 20"><path d="M10 2L10 18M5 7Q10 3 15 7"/><circle cx="10" cy="18" r="1.5" fill="rgba(255,255,255,.9)" stroke="none"/></svg></div>`:`<div class="msg-av">${S.name?S.name[0].toUpperCase():'Y'}</div>`;
+  const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  d.innerHTML=`${av}<div><div class="msg-bubble">${text.replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>')}</div><div class="msg-meta">${t}</div></div>`;
+  el.appendChild(d);el.scrollTop=el.scrollHeight;
+  S.msgs.push({role:role==='agent'?'assistant':'user',content:text});
+}
+function showTyping(){
+  const el=document.getElementById('chatMsgs');
+  const d=document.createElement('div');d.className='msg agent';d.id='typingInd';
+  d.innerHTML=`<div class="msg-av"><svg viewBox="0 0 20 20"><path d="M10 2L10 18M5 7Q10 3 15 7"/><circle cx="10" cy="18" r="1.5" fill="rgba(255,255,255,.9)" stroke="none"/></svg></div><div class="msg-bubble"><div class="typing-ind"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div></div>`;
+  el.appendChild(d);el.scrollTop=el.scrollHeight;
+}
+function rmTyping(){const t=document.getElementById('typingInd');if(t)t.remove();}
+async function sendMsg(){
+  const inp=document.getElementById('userInput');const text=inp.value.trim();
+  if(!text||S.waiting)return;
+  inp.value='';autoResize(inp);document.getElementById('chipArea').innerHTML='';
+  addMsg('user',text);S.waiting=true;document.getElementById('sendBtn').disabled=true;showTyping();
+  try{
+    const sys=`You are Sanctuary's pastoral conversation companion — warm, theologically grounded, emotionally attuned, for worship team members. Speaking with ${S.name||'a worship team member'} who serves as ${S.role||'a worship team member'}.${S.needs.length?' They are experiencing: '+S.needs.join(', '):''}\n\nApproach: warm, pastoral, never clinical. Theologically literate across Protestant traditions (Reformed, charismatic, Baptist, Anglican, Pentecostal). Use reflective listening; don't rush to fix. You understand the unique pressures of worship ministry — visibility, spiritual expectation, creative vulnerability, isolation of always leading. NOT a therapist — gently encourage professional help for acute distress, mentioning Sanctuary's advisor or counsellor pathway when relevant. Responses: 3–6 sentences, conversational. Ask one gentle open question when appropriate. Fully confidential.`;
+    const msgs=[...S.msgs.slice(-12),{role:'user',content:text}];
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':S.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,system:sys,messages:msgs})});
+    if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(r.status+': '+(e.error?.message||r.statusText));}
+    const data=await r.json();rmTyping();addMsg('agent',data.content?.[0]?.text||'Please try again.');
+    if(S.msgs.length<=4)showChips(["Tell me more","How do I navigate this?","What does scripture say?","I need practical help"]);
+  }catch(err){
+    rmTyping();
+    addMsg('agent',err.message.includes('401')?'Your API key appears to be invalid. Please check it.':err.message.includes('429')?'Rate limit reached — please wait a moment.':'Connection error. Please check your API key and try again.');
+  }
+  S.waiting=false;document.getElementById('sendBtn').disabled=false;document.getElementById('userInput').focus();
+}
+function clearChat(){if(S.msgs.length&&!confirm('Start a new conversation?'))return;S.msgs=[];document.getElementById('chatMsgs').innerHTML='';initChat();}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';}
+
+// ── ARTICLES ─────────────────────────────────────
+let curCat='all';
+function renderArticles(){
+  const list=curCat==='all'?ARTICLES:ARTICLES.filter(a=>a.cat===curCat);
+  document.getElementById('articlesGrid').innerHTML=list.map(a=>`
+    <div class="article-card" onclick="openArt(${a.id})">
+      <div class="article-thumb" style="background:${a.color}">${a.emoji}</div>
+      <div class="article-body">
+        <div class="article-cat">${a.cat}</div>
+        <div class="article-title">${a.title}</div>
+        <div class="article-excerpt">${a.excerpt}</div>
+        <div class="article-meta">${a.author} · ${a.read}</div>
+      </div>
+    </div>`).join('');
+}
+function filterArt(cat,btn){curCat=cat;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderArticles();}
+function openArt(id){
+  const a=ARTICLES.find(x=>x.id===id);
+  document.getElementById('articlesListSec').style.display='none';
+  document.getElementById('articleDetailSec').style.display='block';
+  document.getElementById('articleDetailContent').innerHTML=`<button class="back-btn" onclick="closeArt()">← Back to articles</button><div class="article-full-cat">${a.cat}</div><h1 class="article-full-title">${a.title}</h1><div class="article-full-meta">${a.author} · ${a.date} · ${a.read}</div><div class="article-content">${a.content}</div>`;
+  window.scrollTo(0,0);
+}
+function closeArt(){document.getElementById('articlesListSec').style.display='block';document.getElementById('articleDetailSec').style.display='none';}
+
+// ── TRAINING ─────────────────────────────────────
+function renderCourses(){
+  const tagL={free:'Free',pro:'Flourish',coming:'Coming soon'};
+  const tagC={free:'tag-free',pro:'tag-pro',coming:'tag-coming'};
+  document.getElementById('courseGrid').innerHTML=COURSES.map(c=>{
+    const done=c.mods.filter((_,i)=>S.progress[c.id+'-'+i]).length;
+    const pct=c.mods.length?Math.round(done/c.mods.length*100):0;
+    return `<div class="course-card" onclick="openCourse(${c.id})">
+      <div class="course-hdr" style="background:${c.color}"><div class="course-icon">🎓</div><div class="course-name">${c.title}</div><div class="course-mods">${c.mods.length} modules</div></div>
+      <div class="course-body"><div class="course-desc">${c.desc}</div>${c.mods.length?`<div class="course-prog"><div class="course-prog-fill" style="width:${pct}%"></div></div><div class="course-prog-label">${pct}% complete</div>`:''}<span class="course-tag ${tagC[c.tag]}">${tagL[c.tag]}</span></div>
+    </div>`;
+  }).join('');
+}
+function openCourse(id){
+  const c=COURSES.find(x=>x.id===id);
+  if(c.tag==='coming'){alert('This course is coming soon!');return;}
+  document.getElementById('coursesListSec').style.display='none';
+  document.getElementById('courseDetailSec').style.display='block';
+  renderCourseDetail(c);window.scrollTo(0,0);
+}
+function renderCourseDetail(c){
+  const tagL={free:'Free',pro:'Flourish',coming:'Coming soon'};
+  document.getElementById('courseDetailContent').innerHTML=`
+    <button class="back-btn" onclick="closeCourse()">← Back to training</button>
+    <div class="sec-eyebrow">${tagL[c.tag]} Course</div>
+    <h1 class="sec-title">${c.title}</h1>
+    <p class="sec-desc" style="margin-bottom:0">${c.desc}</p>
+    <div class="module-list">${c.mods.map((m,i)=>{
+      const done=S.progress[c.id+'-'+i];
+      const locked=c.tag==='pro'&&!m.free;
+      return `<div class="module-item${locked?' locked':''}" onclick="${locked?'showUpgradePrompt()':'openMod('+c.id+','+i+')'}">
+        <div class="mod-num${done?' done':''}">${done?'✓':i+1}</div>
+        <div class="mod-info"><div class="mod-name">${m.name}</div><div class="mod-dur">${m.dur}</div></div>
+        ${locked?'<span style="color:var(--text3)">🔒</span>':''}
+      </div>`;
+    }).join('')}</div>
+    <div id="modContentArea"></div>`;
+}
+function openMod(cid,idx){
+  const c=COURSES.find(x=>x.id===cid);const m=c.mods[idx];
+  document.getElementById('modContentArea').innerHTML=`
+    <div class="module-content-box">
+      <h3>${m.name}</h3><p>${m.body}</p>
+      <div class="reflection-box"><p>💭 Reflection: ${m.reflect}</p></div>
+      <div class="module-nav">
+        ${idx>0?`<button class="btn-mod next" onclick="openMod(${cid},${idx-1})">← Previous</button>`:''}
+        <button class="btn-mod done-b" onclick="markDone(${cid},${idx})">Mark complete ✓</button>
+        ${idx<c.mods.length-1?`<button class="btn-mod next" onclick="openMod(${cid},${idx+1})">Next →</button>`:''}
+      </div>
+    </div>`;
+  document.getElementById('modContentArea').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function markDone(cid,idx){
+  S.progress[cid+'-'+idx]=true;localStorage.setItem('san_progress',JSON.stringify(S.progress));
+  const c=COURSES.find(x=>x.id===cid);renderCourseDetail(c);
+  setTimeout(()=>openMod(cid,idx),100);
+}
+function closeCourse(){document.getElementById('coursesListSec').style.display='block';document.getElementById('courseDetailSec').style.display='none';renderCourses();}
+function showUpgradePrompt(){if(confirm('This module requires the Flourish plan. View pricing?'))showPage('pricing');}
+
+// ── ADVISOR ─────────────────────────────────────
+function showUpgradeGate(){const g=document.getElementById('upgradeGate');g.style.display='block';g.scrollIntoView({behavior:'smooth'});}
+
+// ── COUNSELLOR ─────────────────────────────────────
+function submitReferral(){document.getElementById('counselForm').style.display='none';document.getElementById('referralSuccess').style.display='block';window.scrollTo(0,0);}
+
+// ── PWA ─────────────────────────────────────
+window.addEventListener('load',()=>{
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone=window.navigator.standalone;
+  if(isIOS&&!isStandalone&&!localStorage.getItem('install_dismissed')){
+    setTimeout(()=>document.getElementById('installBanner').classList.add('show'),3500);
+  }
+});
+function dismissInstall(){document.getElementById('installBanner').classList.remove('show');localStorage.setItem('install_dismissed','1');}
+</script>
+</body>
+</html>

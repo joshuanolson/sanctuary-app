@@ -332,6 +332,7 @@ footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
   <div class="nav-inner">
     <div class="nav-logo" onclick="showPage('home')">Sanctuary</div>
     <div class="nav-links">
+      <button class="nav-link" onclick="showPage('daily')">Daily</button>
       <button class="nav-link" onclick="showPage('about')">About</button>
       <button class="nav-link" onclick="showPage('training')">Training</button>
       <button class="nav-link" onclick="showPage('articles')">Articles</button>
@@ -343,6 +344,7 @@ footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
     <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-link" onclick="showPage('daily');toggleMenu()">Daily</div>
     <div class="mobile-link" onclick="showPage('about');toggleMenu()">About</div>
     <div class="mobile-link" onclick="showPage('training');toggleMenu()">Training</div>
     <div class="mobile-link" onclick="showPage('articles');toggleMenu()">Articles</div>
@@ -364,6 +366,7 @@ footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
       <p class="hero-p">A private, confidential space for worship leaders and team members to process, reflect, and find support — grounded in faith, informed by care.</p>
       <div class="hero-btns">
         <button class="btn-primary" onclick="startJourney()">Begin my journey →</button>
+        <button class="btn-outline" onclick="showPage('daily')">Start daily program</button>
         <button class="btn-outline" onclick="showPage('about')">Learn more</button>
       </div>
       <p class="trust-note"><span class="trust-dot"></span>Fully private &amp; confidential. Your church cannot see this.</p>
@@ -385,6 +388,7 @@ footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
         <p class="sec-desc">Built specifically for the pressures, paradoxes, and spiritual questions of worship team life.</p>
       </div>
       <div class="pillars-grid">
+        <div class="pillar-card" onclick="showPage('daily')"><div class="pillar-icon">📅</div><div class="pillar-name">Daily Program</div><div class="pillar-desc">A 30-day devotional journey built for worship leaders — scripture, reflection, and a personal check-in every day.</div></div>
         <div class="pillar-card" onclick="startJourney()"><div class="pillar-icon">🤖</div><div class="pillar-name">AI Pastoral Agent</div><div class="pillar-desc">A private, always-available conversation partner — theologically grounded, emotionally attuned, completely confidential.</div></div>
         <div class="pillar-card" onclick="showPage('training')"><div class="pillar-icon">🎓</div><div class="pillar-name">Training Space</div><div class="pillar-desc">Courses on worship theology, sustainable ministry, lament, and leadership — built for every level of team member.</div></div>
         <div class="pillar-card" onclick="showPage('connect')"><div class="pillar-icon">🤝</div><div class="pillar-name">Advisor Connect</div><div class="pillar-desc">Private sessions with vetted worship leaders and pastoral mentors who understand your world from the inside.</div></div>
@@ -403,7 +407,8 @@ footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
   <footer><div class="footer-inner">
     <div class="footer-grid">
       <div><div class="footer-brand">Sanctuary</div><p class="footer-desc">A wellbeing platform for worship teams in Protestant churches. Private, confidential, and theologically grounded.</p></div>
-      <div><h4>Platform</h4><button class="footer-link" onclick="startJourney()">AI Companion</button><button class="footer-link" onclick="showPage('training')">Training</button><button class="footer-link" onclick="showPage('connect')">Advisors</button><button class="footer-link" onclick="showPage('counsellor')">Counselling</button></div>
+      <div><h4>Platform</h4><button class="footer-link" onclick="showPage('daily')">Daily Program</button>
+          <button class="footer-link" onclick="startJourney()">AI Companion</button><button class="footer-link" onclick="showPage('training')">Training</button><button class="footer-link" onclick="showPage('connect')">Advisors</button><button class="footer-link" onclick="showPage('counsellor')">Counselling</button></div>
       <div><h4>Company</h4><button class="footer-link" onclick="showPage('about')">About</button><button class="footer-link" onclick="showPage('articles')">Articles</button><button class="footer-link" onclick="showPage('pricing')">Pricing</button></div>
       <div><h4>Support</h4><button class="footer-link">Privacy Policy</button><button class="footer-link">Terms of Service</button><button class="footer-link">Contact</button></div>
     </div>
@@ -676,6 +681,24 @@ footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
   <footer><div class="footer-inner"><div class="footer-bottom"><span class="footer-copy">© 2026 Sanctuary</span></div></div></footer>
 </div>
 
+<!-- DAILY PROGRAM SCREEN -->
+<div class="screen page" id="daily">
+  <div class="dp-header">
+    <div class="dp-header-top">
+      <div style="font-family:'Lora',serif;color:#fff;font-size:17px;cursor:pointer" onclick="showPage('home')">&#8592; Sanctuary</div>
+      <div class="dp-streak"><span>&#128293;</span><span id="streakCount">0</span> day streak</div>
+    </div>
+    <div class="dp-week-label">Week <span id="currentWeekNum">1</span></div>
+    <div class="dp-week-theme" id="currentWeekTheme">Who Am I?</div>
+    <div class="dp-progress-track"><div class="dp-progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="dp-progress-label" id="progressLabel">Day 1 of 30</div>
+  </div>
+  <div class="week-dots" id="weekDots"></div>
+  <div class="day-rail" id="dayRail"></div>
+  <div class="dp-content" id="dpContent"></div>
+  <footer><div class="footer-inner"><div class="footer-bottom"><span class="footer-copy">&#169; 2026 Sanctuary</span></div></div></footer>
+</div>
+
 <!-- ══ ONBOARDING ══ -->
 <div class="screen" id="onboarding">
   <div class="ob-header"><div class="ob-logo">Sanctuary</div><div class="ob-step" id="stepLabel">Step 1 of 4</div></div>
@@ -737,6 +760,47 @@ footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
   </div>
 </div>
 
+<!-- Check-in modal -->
+<div class="checkin-overlay" id="checkinOverlay">
+  <div class="checkin-sheet">
+    <div class="checkin-handle"></div>
+    <div class="checkin-title">How are you, really?</div>
+    <div class="checkin-sub">Just for you — this isn't shared with anyone.</div>
+
+    <div class="checkin-group">
+      <div class="checkin-label"><span class="checkin-label-text">Mood</span><span class="checkin-label-emoji" id="moodEmoji">😐</span></div>
+      <input type="range" min="1" max="5" value="3" class="checkin-slider" id="moodSlider" oninput="updateEmoji('mood',this.value)">
+      <div class="checkin-scale-labels"><span>Heavy</span><span>Light</span></div>
+    </div>
+    <div class="checkin-group">
+      <div class="checkin-label"><span class="checkin-label-text">Energy</span><span class="checkin-label-emoji" id="energyEmoji">😐</span></div>
+      <input type="range" min="1" max="5" value="3" class="checkin-slider" id="energySlider" oninput="updateEmoji('energy',this.value)">
+      <div class="checkin-scale-labels"><span>Depleted</span><span>Full</span></div>
+    </div>
+    <div class="checkin-group">
+      <div class="checkin-label"><span class="checkin-label-text">Spiritual connectedness</span><span class="checkin-label-emoji" id="spiritEmoji">😐</span></div>
+      <input type="range" min="1" max="5" value="3" class="checkin-slider" id="spiritSlider" oninput="updateEmoji('spirit',this.value)">
+      <div class="checkin-scale-labels"><span>Distant</span><span>Close</span></div>
+    </div>
+
+    <input type="text" class="checkin-note" id="checkinNote" placeholder="Anything else, in one line? (optional)">
+    <button class="btn-checkin-submit" onclick="submitCheckin()">Complete today's reflection</button>
+  </div>
+</div>
+
+<!-- Success modal -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="success-icon">🌿</div>
+    <div class="success-title">Day complete</div>
+    <div class="success-desc">You showed up today. That matters more than you know.</div>
+    <div class="success-streak">
+      <span class="success-streak-num" id="finalStreak">1</span>
+      <span class="success-streak-label">day streak</span>
+    </div>
+    <button class="btn-continue" onclick="closeSuccess()">Continue</button>
+  </div>
+
 <!-- PWA Install Banner -->
 <div class="install-banner" id="installBanner">
   <p><strong>Add Sanctuary to your home screen</strong>Tap Share → "Add to Home Screen" for the full app experience.</p>
@@ -789,12 +853,13 @@ function showPage(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
-  const pages=['about','training','articles','connect','counsellor','pricing'];
+  const pages=['daily','about','training','articles','connect','counsellor','pricing'];
   const idx=pages.indexOf(id);
-  if(idx>=0) document.querySelectorAll('.nav-link')[idx].classList.add('active');
+  if(idx>=0){ var nls=document.querySelectorAll('.nav-link'); if(nls[idx]) nls[idx].classList.add('active'); }
   window.scrollTo(0,0);
   if(id==='articles') renderArticles();
   if(id==='training') renderCourses();
+  if(id==='daily') { if(typeof render==='function') render(); }
 }
 function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
 function startJourney(){
@@ -972,6 +1037,209 @@ function showUpgradeGate(){const g=document.getElementById('upgradeGate');g.styl
 
 // ── COUNSELLOR ─────────────────────────────────────
 function submitReferral(){document.getElementById('counselForm').style.display='none';document.getElementById('referralSuccess').style.display='block';window.scrollTo(0,0);}
+
+// ── DAILY PROGRAM ────────────────────────────
+const DAILY_PROGRAM = {
+  weeks: [
+    { num: 1, theme: "Who Am I?", subtitle: "Identity, calling, and being made in His image" },
+    { num: 2, theme: "The Weight I Carry", subtitle: "Loneliness, isolation, and being unseen" },
+    { num: 3, theme: "When It’s Hard to Believe", subtitle: "Doubt, dry seasons, and theological tension" },
+    { num: 4, theme: "Sustainable Flame", subtitle: "Burnout, Sabbath, boundaries, and rest" },
+    { num: 5, theme: "Poured Back In", subtitle: "Restoration, joy, and renewed purpose" }
+  ],
+  days: [
+    { week:1, day:1, title:"Being a Child of God",
+      scriptureRef:"1 John 3:1 (NLT)",
+      scriptureText:"See how very much our Father loves us, for He calls us His children, and that is what we are!",
+      reflection:"Before you ever led worship, you were a child, loved by a Heavenly Father. As a worship leader, it’s easy to forget that it’s not just those you’re leading in worship that are children of God. He loves you for who you are. Full stop. No strings attached. Regardless of your rostered position, how rehearsal went, what someone thought about how you served in church last weekend.\n\nHe created you and loves you. It was never about what skill or talent you could offer. Today, take a moment to remember what being a child of God means. What a freeing thought that the most important audience of your worship created you. He doesn’t need you to perform. Like a loving Father, He wants your heart and attention. Setlists, opinions, and performance aren’t what impresses Him. Yet, He delights in your attention.",
+      prompt:"What would change in your life if you lived like you were a child of God? What would change in your worship?"
+    },
+    { week:1, day:2, title:"Fearfully Made",
+      scriptureRef:"Psalm 139:14 (NIV)",
+      scriptureText:"I praise You because I am fearfully and wonderfully made; Your works are wonderful, I know that full well.",
+      reflection:"As a worship leader, it’s easy to recall the wonder of God. You have songs floating around your head that declare the greatness of God. Singing songs about amazing grace, the goodness of God, how He makes a way and the beauty of His name constantly reminds us that God is on a scale of grandeur that’s at times difficult to fathom.\n\nAs worship leaders, it’s tempting to direct this scripture to be about the people we’re leading. Declaring that they are fearfully made takes the spotlight off us. However, this Psalm is intentional in that it forces you to say, “I am fearfully and wonderfully made.” This isn’t pride and it’s not for someone else. This is the Word of God reminding you that you are fearfully and wonderfully made.\n\nConsider this: You must be fearfully and wonderfully made, because your Creator is perfection and His works are wonderful. Your identity is determined by the Creator of the universe. What a freeing thought!",
+      prompt:"What is something, unique to you, that God wonderfully made?"
+    },
+    { week:1, day:3, title:"New Life Has Begun",
+      scriptureRef:"2 Corinthians 5:17 (NLT)",
+      scriptureText:"This means that anyone who belongs to Christ has become a new person. The old life is gone; a new life has begun!",
+      reflection:"Every singer or musician loves the new. Learning that new chord, harmony, arrangement. The constant pursuit to create isn’t just a hobby, it’s who you are — and that’s a God-given gift! You may feel alive in the pursuit of the new sound, lyric, or harmony. You’re not alone. In fact, many people share this and wonder where their place is. The reality is, your place is where the Creator is. You’ve been shaped in His image and He knows how you’re feeling.\n\nWe’ve all made mistakes. In life, of course. But we’ve also made mistakes in leading worship. Every singer has forgotten the words. Every musician has forgotten their place. Every leader has doubted how they handled a difficult conversation. Every songwriter has questioned their final submitted song.\n\nThere is good news! The Creator knows you, because He created you. What a releasing thought. You’re not a mistake. Yes, you’ve made mistakes. Yet the perfect Creator made you — not you. When you make mistakes, He makes you new. The Creator of time, space, and you is committed to your life being a success. He’s not after the ultimate setlist or Sunday worship moment. He’s searching for you.",
+      prompt:"Where do you most need to remember that He is making you new?"
+    },
+    { week:1, day:4, title:"Whose Image Are You?",
+      scriptureRef:"Genesis 1:27 (NLT)",
+      scriptureText:"So God created human beings in His own image. In the image of God He created them; male and female He created them.",
+      reflection:"It’s easy to find your identity in your skill. How many times have you heard someone ask, “so what do you do?” We seem obsessed with understanding who we are — and others — by which skills we have. By what we do. It’s easy to categorize people into their skills. Creatives or pastors. Preachers or teachers. Singers or musicians. The Bible never put us into these boxes. Right from Genesis, God reminds us that we’re created in His image. We’re not identified by our skill, but by our Creator.\n\nThis may be controversial theology, but does Heaven categorize us using these boxes? Maybe this is why we’re often so fascinated by King David: the worshipping warrior king. How would Moses, leader of the nation of Israel and songwriter, fit into our boxes? You are no different. God created you in His image. Yes, you serve with your skills and gifting, but your value far exceeds your rostered position.\n\nThis can be a challenging reminder. In the busy-ness of life, it can feel like you’re subservient to the roster, soundcheck, or set list. In fact, you may feel your chest tighten just reading those words, and you wouldn’t be alone. There is good news! You weren’t created for the roster. You weren’t created in its image. You were created by God and in His image.",
+      prompt:"Is there anything that feels like it has become a distraction from you remembering that you’re made in God’s image? If so, what?"
+    }
+  ]
+};
+
+<script>
+// ── STATE ──────────────────────────────────
+const PROG = JSON.parse(localStorage.getItem('san_daily_progress') || '{}');
+// PROG = { completedDays: [1,2,3], streak: 3, lastCompleted: 'YYYY-MM-DD', checkins: {1: {mood,energy,spirit,note}} }
+if (!PROG.completedDays) PROG.completedDays = [];
+if (!PROG.streak) PROG.streak = 0;
+if (!PROG.checkins) PROG.checkins = {};
+
+let currentDay = Math.max(1, (PROG.completedDays.length || 0) + 1);
+if (currentDay > DAILY_PROGRAM.days.length) currentDay = DAILY_PROGRAM.days.length;
+let viewingDay = currentDay;
+
+const emojis = { mood: ['😞','😕','😐','🙂','😊'], energy: ['🪫','😴','😐','💪','⚡'], spirit: ['🌫️','😶','😐','🙏','✨'] };
+
+function saveProgress() { localStorage.setItem('san_daily_progress', JSON.stringify(PROG)); }
+
+function getDay(num) { return DAILY_PROGRAM.days.find(d => d.day === num); }
+function getWeek(num) { return DAILY_PROGRAM.weeks.find(w => w.num === num); }
+
+function render() {
+  renderHeader();
+  renderWeekDots();
+  renderDayRail();
+  renderContent();
+}
+
+function renderHeader() {
+  const d = getDay(viewingDay);
+  const w = d ? getWeek(d.week) : DAILY_PROGRAM.weeks[0];
+  document.getElementById('currentWeekNum').textContent = w.num;
+  document.getElementById('currentWeekTheme').textContent = w.theme;
+  document.getElementById('streakCount').textContent = PROG.streak;
+  const totalDays = 30; // full program length once content complete
+  const pct = Math.round((PROG.completedDays.length / totalDays) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `Day ${viewingDay} of ${totalDays} · ${PROG.completedDays.length} completed`;
+}
+
+function renderWeekDots() {
+  const el = document.getElementById('weekDots');
+  const curWeek = getDay(viewingDay)?.week || 1;
+  el.innerHTML = DAILY_PROGRAM.weeks.map(w => {
+    const weekDays = DAILY_PROGRAM.days.filter(d => d.week === w.num);
+    const weekDone = weekDays.length > 0 && weekDays.every(d => PROG.completedDays.includes(d.day));
+    const cls = w.num === curWeek ? 'active' : (weekDone ? 'done' : '');
+    const hasContent = weekDays.length > 0;
+    return `<div class="week-dot ${cls}" onclick="${hasContent ? `jumpToWeek(${w.num})` : ''}" style="${hasContent ? '' : 'opacity:.35;cursor:default'}">
+      <div class="week-dot-circle">${weekDone ? '✓' : w.num}</div>
+      <div class="week-dot-label">${w.theme.split(' ').slice(0,2).join(' ')}</div>
+    </div>`;
+  }).join('');
+}
+
+function jumpToWeek(weekNum) {
+  const firstDay = DAILY_PROGRAM.days.find(d => d.week === weekNum);
+  if (firstDay) { viewingDay = firstDay.day; render(); }
+}
+
+function renderDayRail() {
+  const el = document.getElementById('dayRail');
+  const curWeek = getDay(viewingDay)?.week || 1;
+  const weekDays = DAILY_PROGRAM.days.filter(d => d.week === curWeek);
+  el.innerHTML = weekDays.map(d => {
+    const done = PROG.completedDays.includes(d.day);
+    const active = d.day === viewingDay;
+    const cls = active ? 'active' : (done ? 'done' : '');
+    return `<div class="day-pill ${cls}" onclick="viewDay(${d.day})">
+      <div class="day-pill-num">${done && !active ? '✓' : d.day}</div>
+      <div class="day-pill-label">Day</div>
+    </div>`;
+  }).join('');
+}
+
+function viewDay(num) {
+  viewingDay = num;
+  render();
+}
+
+function renderContent() {
+  const d = getDay(viewingDay);
+  const el = document.getElementById('dpContent');
+  if (!d) {
+    el.innerHTML = `<div class="locked-state"><div class="locked-icon">🔒</div><div class="locked-title">More days coming soon</div><div class="locked-desc">This part of the journey is still being written. Check back soon for the next chapter.</div></div>`;
+    return;
+  }
+  const isDone = PROG.completedDays.includes(d.day);
+  const savedNote = PROG.checkins[d.day]?.promptResponse || '';
+
+  el.innerHTML = `
+    <div class="dp-day-label">Day ${d.day} · Week ${d.week}</div>
+    <h1 class="dp-title">${d.title}</h1>
+
+    <div class="scripture-card">
+      <div class="scripture-text">"${d.scriptureText}"</div>
+      <div class="scripture-ref">${d.scriptureRef}</div>
+    </div>
+
+    <div class="reflection-block">
+      ${d.reflection.split('\n\n').map(p => `<p>${p}</p>`).join('')}
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Reflect</div>
+      <div class="prompt-text">${d.prompt}</div>
+      <textarea class="prompt-textarea" id="promptResponse" placeholder="Write as much or as little as you'd like. This stays private.">${savedNote}</textarea>
+      <div class="prompt-save-note">Your response is saved only on this device.</div>
+    </div>
+
+    <button class="btn-complete ${isDone ? 'done' : ''}" onclick="${isDone ? '' : 'openCheckin()'}" ${isDone ? 'disabled' : ''}>
+      ${isDone ? '✓ Completed' : 'Complete today\'s reflection →'}
+    </button>
+  `;
+}
+
+// ── CHECK-IN FLOW ──────────────────────────────────
+function openCheckin() {
+  const response = document.getElementById('promptResponse').value;
+  PROG.checkins[viewingDay] = { ...(PROG.checkins[viewingDay] || {}), promptResponse: response };
+  saveProgress();
+  document.getElementById('checkinOverlay').classList.add('show');
+}
+
+function updateEmoji(type, val) {
+  document.getElementById(type + 'Emoji').textContent = emojis[type][val - 1];
+}
+
+function submitCheckin() {
+  const mood = document.getElementById('moodSlider').value;
+  const energy = document.getElementById('energySlider').value;
+  const spirit = document.getElementById('spiritSlider').value;
+  const note = document.getElementById('checkinNote').value;
+
+  PROG.checkins[viewingDay] = { ...(PROG.checkins[viewingDay] || {}), mood, energy, spirit, note, date: new Date().toISOString() };
+
+  if (!PROG.completedDays.includes(viewingDay)) {
+    PROG.completedDays.push(viewingDay);
+    PROG.completedDays.sort((a,b) => a-b);
+
+    // Streak logic
+    const today = new Date().toDateString();
+    const lastDate = PROG.lastCompleted ? new Date(PROG.lastCompleted).toDateString() : null;
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    if (lastDate === yesterday || !lastDate) {
+      PROG.streak += 1;
+    } else if (lastDate !== today) {
+      PROG.streak = 1;
+    }
+    PROG.lastCompleted = new Date().toISOString();
+  }
+  saveProgress();
+
+  document.getElementById('checkinOverlay').classList.remove('show');
+  document.getElementById('finalStreak').textContent = PROG.streak;
+  document.getElementById('successOverlay').classList.add('show');
+}
+
+function closeSuccess() {
+  document.getElementById('successOverlay').classList.remove('show');
+  // advance to next day if available
+  const nextDay = getDay(viewingDay + 1);
+  if (nextDay) viewingDay = nextDay.day;
+  render();
+}
+
+render();
 
 // ── PWA ─────────────────────────────────────
 window.addEventListener('load',()=>{

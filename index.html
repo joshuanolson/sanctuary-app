@@ -445,9 +445,9 @@ footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
 
 <!-- NAV -->
 <nav id="mainNav">
- <div class="nav-inner">
- <div class="nav-logo" onclick="showPage('home')">Sanctuary</div>
- <div class="nav-links">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">Sanctuary</div>
+    <div class="nav-links">
       <button class="nav-link" onclick="showPage('daily')">Daily</button>
       <button class="nav-link" onclick="showPage('training')">Training</button>
       <button class="nav-link" onclick="showPage('chat-landing')">Online Chat</button>
@@ -456,10 +456,10 @@ footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
       <button class="nav-link" onclick="showPage('about')">About</button>
       <button class="nav-link" onclick="showPage('pricing')">Pricing</button>
     </div>
- <button class="nav-cta" onclick="startJourney()">Begin →</button>
- <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
- </div>
- <div class="mobile-menu" id="mobileMenu">
+    <button class="nav-cta" onclick="showPage('daily')">Begin &rarr;</button>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-link" onclick="showPage('daily');toggleMenu()">Daily</div>
     <div class="mobile-link" onclick="showPage('training');toggleMenu()">Training</div>
     <div class="mobile-link" onclick="showPage('chat-landing');toggleMenu()">Online Chat</div>
@@ -467,79 +467,140 @@ footer{background:var(--navy);padding:40px 20px 24px;margin-top:auto}
     <div class="mobile-link" onclick="showPage('counsellor');toggleMenu()">Counselling</div>
     <div class="mobile-link" onclick="showPage('about');toggleMenu()">About</div>
     <div class="mobile-link" onclick="showPage('pricing');toggleMenu()">Pricing</div>
-    <div class="mobile-link" onclick="startJourney();toggleMenu()" style="color:var(--sage-light);font-weight:500">Begin your journey &rarr;</div>
+    <div class="mobile-link" onclick="showPage('daily');toggleMenu()" style="color:var(--sage-light);font-weight:500">Begin your journey &rarr;</div>
   </div>
- <div class="mobile-link" onclick="showPage('about');toggleMenu()">About</div>
- <div class="mobile-link" onclick="showPage('training');toggleMenu()">Training</div>
- <div class="mobile-link" onclick="showPage('articles');toggleMenu()">Articles</div>
- <div class="mobile-link" onclick="showPage('connect');toggleMenu()">Advisors</div>
- <div class="mobile-link" onclick="showPage('counsellor');toggleMenu()">Counselling</div>
- <div class="mobile-link" onclick="showPage('pricing');toggleMenu()">Pricing</div>
- <div class="mobile-link" onclick="startJourney();toggleMenu()" style="color:var(--sage-light);font-weight:500">Begin your journey →</div>
- </div>
 </nav>
 
 <!-- ══ HOME ══ -->
+<!-- HOME -->
 <div class="screen page active" id="home">
- <div class="hero">
- <div class="hero-inner">
- <div class="logo-mark"><svg viewBox="0 0 32 32"><path d="M16 4L16 28M8 12Q16 6 24 12"/><circle cx="16" cy="28" r="2" fill="white" stroke="none"/></svg></div>
- <div class="wordmark">Sanctuary</div>
- <div class="tagline-sub">Worship Team Wellbeing</div>
- <h1 class="hero-headline">You pour out <em>every week</em>.<br>This is where you're poured back in.</h1>
- <p class="hero-p">A private, confidential space for worship leaders and team members to process, reflect, and find support — grounded in faith, informed by care.</p>
- <div class="hero-btns">
- <button class="btn-primary" onclick="startJourney()">Begin my journey →</button>
- <button class="btn-outline" onclick="showPage('daily')">Start daily program</button>
- <button class="btn-outline" onclick="showPage('about')">Learn more</button>
- </div>
- <p class="trust-note"><span class="trust-dot"></span>Fully private &amp; confidential. </p>
- </div>
- </div>
- <div class="stats-bar">
- <div class="stats-inner">
- <div class="stat-item"><div class="stat-num">3.4%</div><div class="stat-label">Worship leaders rating mental health 'excellent' (vs 29% nationally)</div></div>
- <div class="stat-item"><div class="stat-num">87%</div><div class="stat-label">Receive no regular support or pastoral care</div></div>
- <div class="stat-item"><div class="stat-num">65%</div><div class="stat-label">Of pastors report loneliness and isolation</div></div>
- <div class="stat-item"><div class="stat-num">450K+</div><div class="stat-label">Protestant churches across English-speaking nations</div></div>
- </div>
- </div>
- <div class="section alt">
- <div class="section-inner">
- <div class="sec-header">
- <div class="sec-eyebrow">What Sanctuary offers</div>
- <h2 class="sec-title">Four pillars of sustainable ministry</h2>
- <p class="sec-desc">Built specifically for the pressures, paradoxes, and spiritual questions of worship team life.</p>
- </div>
- <div class="pillars-grid">
- <div class="pillar-card" onclick="showPage('daily')"><div class="pillar-icon" style="color:var(--sage)"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="5" width="28" height="26" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 13h28" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v4M24 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="10" y="18" width="5" height="5" rx="1" fill="currentColor" opacity="0.6"/><rect x="20" y="18" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"/><rect x="10" y="25" width="5" height="3" rx="1" fill="currentColor" opacity="0.3"/></svg></div><div class="pillar-name">Daily Program</div><div class="pillar-desc">An ongoing devotional journey built for worship leaders — scripture, reflection, and a personal check-in every day.</div></div>
- <div class="pillar-card" onclick="showPage('chat-landing')"><div class="pillar-icon" style="color:var(--sage)"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H15l-5 4v-4H9a3 3 0 0 1-3-3V10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 26h5a3 3 0 0 0 3-3v-1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M26 22l4 3v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="14" r="1.2" fill="currentColor"/><circle cx="18" cy="14" r="1.2" fill="currentColor"/></svg></div><div class="pillar-name">Online Chat</div><div class="pillar-desc">A private, always-available conversation partner — theologically grounded, emotionally attuned, completely confidential.</div></div>
- <div class="pillar-card" onclick="showPage('training')"><div class="pillar-icon" style="color:var(--sage)"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L4 13l14 7 14-7-14-7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 13v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10 16.5v7a10 10 0 0 0 16 0v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="pillar-name">Training Space</div><div class="pillar-desc">Courses on worship theology, sustainable ministry, lament, and leadership — built for every level of team member.</div></div>
- <div class="pillar-card" onclick="showPage('connect')"><div class="pillar-icon">🤝</div><div class="pillar-name">Advisor Connect</div><div class="pillar-desc">Private sessions with vetted worship leaders and pastoral mentors who understand your world from the inside.</div></div>
- <div class="pillar-card" onclick="showPage('counsellor')"><div class="pillar-icon">🧠</div><div class="pillar-name">Counsellor Referral</div><div class="pillar-desc">A warm pathway to qualified, faith-informed psychologists when the support you need goes deeper than conversation.</div></div>
- </div>
- </div>
- </div>
- <div class="section" style="text-align:center">
- <div class="section-inner">
- <div class="sec-eyebrow">Ready to begin?</div>
- <h2 class="sec-title" style="margin:0 auto 12px">Your first session is free.</h2>
- <p class="sec-desc" style="margin:0 auto 32px;text-align:center">No credit card. No commitment. Just a space to breathe and be honest.</p>
- <button class="btn-primary" onclick="startJourney()">Begin my journey →</button>
- </div>
- </div>
- <footer><div class="footer-inner">
- <div class="footer-grid">
- <div><div class="footer-brand">Sanctuary</div><p class="footer-desc">A wellbeing platform for worship teams in Protestant churches. Private, confidential, and theologically grounded.</p></div>
- <div><h4>Platform</h4><button class="footer-link" onclick="showPage('daily')">Daily Program</button>
- <button class="footer-link" onclick="showPage('chat-landing')">Online Chat</button><button class="footer-link" onclick="showPage('training')">Training</button><button class="footer-link" onclick="showPage('connect')">Advisors</button><button class="footer-link" onclick="showPage('counsellor')">Counselling</button></div>
- <div><h4>Company</h4><button class="footer-link" onclick="showPage('about')">About</button><button class="footer-link" onclick="showPage('articles')">Articles</button><button class="footer-link" onclick="showPage('pricing')">Pricing</button></div>
- <div><h4>Support</h4><button class="footer-link">Privacy Policy</button><button class="footer-link">Terms of Service</button><button class="footer-link">Contact</button></div>
- </div>
- <div class="footer-bottom"><span class="footer-copy">© 2026 Sanctuary. All rights reserved.</span></div>
- </div></footer>
-</div>
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="logo-mark"><svg viewBox="0 0 32 32" fill="none"><path d="M16 4L16 28M8 12Q16 6 24 12" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="28" r="2" fill="white"/></svg></div>
+      <div class="wordmark">Sanctuary</div>
+      <div class="tagline-sub">Worship Team Wellbeing</div>
+      <h1 class="hero-headline">You pour out <em>every week</em>.<br>This is where you&rsquo;re poured back in.</h1>
+      <p class="hero-p">A private, confidential space for worship leaders and team members to process, reflect, and find support &mdash; grounded in faith, informed by care.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('daily')">Start your daily journey &rarr;</button>
+        <button class="btn-outline" onclick="showPage('about')">Learn more</button>
+      </div>
+      <p class="trust-note"><span class="trust-dot"></span>Fully private &amp; confidential.</p>
+    </div>
+  </div>
 
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item"><div class="stat-num">3.4%</div><div class="stat-label">Worship leaders rating mental health &lsquo;excellent&rsquo; (vs 29% nationally)</div></div>
+      <div class="stat-item"><div class="stat-num">87%</div><div class="stat-label">Receive no regular support or pastoral care</div></div>
+      <div class="stat-item"><div class="stat-num">65%</div><div class="stat-label">Of pastors report loneliness and isolation</div></div>
+      <div class="stat-item"><div class="stat-num">450K+</div><div class="stat-label">Protestant churches across English-speaking nations</div></div>
+    </div>
+  </div>
+
+  <!-- PILLARS -->
+  <div class="section alt">
+    <div class="section-inner">
+      <div class="sec-header">
+        <div class="sec-eyebrow">What Sanctuary offers</div>
+        <h2 class="sec-title">Four pillars of sustainable ministry</h2>
+        <p class="sec-desc">Built specifically for the pressures, paradoxes, and spiritual questions of worship team life.</p>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar-card" onclick="showPage('daily')">
+          <div class="pillar-icon" style="color:var(--sage)"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="5" width="28" height="26" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 13h28" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v4M24 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="10" y="18" width="5" height="5" rx="1" fill="currentColor" opacity="0.6"/><rect x="20" y="18" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"/></svg></div>
+          <div class="pillar-name">Daily Program</div>
+          <div class="pillar-desc">An ongoing devotional journey built for worship leaders &mdash; scripture, reflection, and a personal check-in every day.</div>
+          <div style="margin-top:16px;font-size:13px;color:var(--sage);font-weight:500">Start today &rarr;</div>
+        </div>
+        <div class="pillar-card" onclick="showPage('chat-landing')">
+          <div class="pillar-icon" style="color:var(--sage)"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 10a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H15l-5 4v-4H9a3 3 0 0 1-3-3V10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 26h5a3 3 0 0 0 3-3v-1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M26 22l4 3v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="14" r="1.2" fill="currentColor"/><circle cx="18" cy="14" r="1.2" fill="currentColor"/></svg></div>
+          <div class="pillar-name">Online Chat</div>
+          <div class="pillar-desc">A private, always-available conversation partner &mdash; theologically grounded, emotionally attuned, completely confidential.</div>
+          <div style="margin-top:16px;font-size:13px;color:var(--sage);font-weight:500">Start a conversation &rarr;</div>
+        </div>
+        <div class="pillar-card" onclick="showPage('connect')">
+          <div class="pillar-icon" style="color:var(--sage)"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="13" cy="12" r="5" stroke="currentColor" stroke-width="1.8"/><path d="M4 28c0-5 4-8 9-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="26" cy="20" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M20 30c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <div class="pillar-name">Advisor Connect</div>
+          <div class="pillar-desc">Private sessions with vetted worship leaders and pastoral mentors who understand your world from the inside.</div>
+          <div style="margin-top:16px;font-size:13px;color:var(--sage);font-weight:500">Meet our advisors &rarr;</div>
+        </div>
+        <div class="pillar-card" onclick="showPage('counsellor')">
+          <div class="pillar-icon" style="color:var(--sage)"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 5a9 9 0 0 1 9 9c0 5-4 9-9 9a9 9 0 0 1-9-9 9 9 0 0 1 9-9z" stroke="currentColor" stroke-width="1.8"/><path d="M18 10v5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 26c2-1.5 5.5-2.5 9-2.5s7 1 9 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <div class="pillar-name">Counsellor Referral</div>
+          <div class="pillar-desc">A warm pathway to qualified, faith-informed psychologists when the support you need goes deeper than conversation.</div>
+          <div style="margin-top:16px;font-size:13px;color:var(--sage);font-weight:500">Learn more &rarr;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="sec-eyebrow">How it works</div>
+      <h2 class="sec-title" style="margin-bottom:8px">Simple. Private. Yours.</h2>
+      <p class="sec-desc" style="margin-bottom:40px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <div class="how-grid">
+        <div class="how-card"><div class="how-num">1</div><div class="how-title">Create your account</div><div class="how-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</div></div>
+        <div class="how-card"><div class="how-num">2</div><div class="how-title">Tell us about yourself</div><div class="how-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</div></div>
+        <div class="how-card"><div class="how-num">3</div><div class="how-title">Begin your journey</div><div class="how-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</div></div>
+        <div class="how-card"><div class="how-num">4</div><div class="how-title">Upgrade when ready</div><div class="how-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="section alt">
+    <div class="section-inner">
+      <div class="sec-eyebrow">What people say</div>
+      <h2 class="sec-title" style="margin-bottom:28px">Trusted by worship leaders</h2>
+      <div class="tgrid">
+        <div class="tcard"><span class="tcard-mark">&#8220;</span><div class="tcard-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div><div class="tcard-author">Lorem I.</div><div class="tcard-role">Worship Leader, 12 years</div></div>
+        <div class="tcard"><span class="tcard-mark">&#8220;</span><div class="tcard-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div><div class="tcard-author">Dolor S.</div><div class="tcard-role">Vocalist &amp; Team Coordinator</div></div>
+        <div class="tcard"><span class="tcard-mark">&#8220;</span><div class="tcard-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div><div class="tcard-author">Amet C.</div><div class="tcard-role">Music Director</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING TEASER -->
+  <div class="section">
+    <div class="section-inner" style="text-align:center">
+      <div class="sec-eyebrow">Pricing</div>
+      <h2 class="sec-title" style="margin:0 auto 8px">Start free. No credit card needed.</h2>
+      <p class="sec-desc" style="margin:0 auto 24px;text-align:center">Plans from $99/year. 7-day free trial on every plan.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-primary" onclick="showPage('daily')">Begin your journey &rarr;</button>
+        <button class="btn-outline" style="color:var(--navy);border-color:var(--border)" onclick="showPage('pricing')">View pricing</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div><div class="footer-brand">Sanctuary</div><p class="footer-desc">A wellbeing platform for worship teams in Protestant churches. Private, confidential, and theologically grounded.</p></div>
+        <div><h4>Platform</h4>
+          <button class="footer-link" onclick="showPage('daily')">Daily Program</button>
+          <button class="footer-link" onclick="showPage('chat-landing')">Online Chat</button>
+          <button class="footer-link" onclick="showPage('training')">Training</button>
+          <button class="footer-link" onclick="showPage('connect')">Advisors</button>
+          <button class="footer-link" onclick="showPage('counsellor')">Counselling</button>
+        </div>
+        <div><h4>Company</h4>
+          <button class="footer-link" onclick="showPage('about')">About</button>
+          <button class="footer-link" onclick="showPage('pricing')">Pricing</button>
+        </div>
+        <div><h4>Support</h4>
+          <button class="footer-link">Privacy Policy</button>
+          <button class="footer-link">Terms of Service</button>
+          <button class="footer-link">Contact</button>
+        </div>
+      </div>
+      <div class="footer-bottom"><span class="footer-copy">&copy; 2026 Sanctuary. All rights reserved.</span></div>
+    </div>
+  </footer>
+</div>
 <!-- ══ ABOUT ══ -->
 <div class="screen page" id="about">
   <div class="page-hero">
